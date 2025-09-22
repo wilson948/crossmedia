@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, ShoppingCart, Menu, X, MapPin, Phone, Clock } from 'lucide-react';
 import { CartItem } from '../types';
+import PaymentModal from './PaymentModal';
 
 interface HeaderProps {
   cartItems: CartItem[];
@@ -11,8 +12,14 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ cartItems, cartItemsCount, updateCartItem }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setIsPaymentModalOpen(true);
+  };
 
   return (
     <>
@@ -198,8 +205,11 @@ const Header: React.FC<HeaderProps> = ({ cartItems, cartItemsCount, updateCartIt
                     <span className="font-semibold">Total:</span>
                     <span className="text-xl font-bold text-emerald-600">${cartTotal.toFixed(2)}</span>
                   </div>
-                  <button className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-colors font-medium">
-                    Proceder al Checkout
+                  <button 
+                    onClick={handleCheckout}
+                    className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+                  >
+                    Proceder al Pago
                   </button>
                 </div>
               )}
@@ -207,6 +217,14 @@ const Header: React.FC<HeaderProps> = ({ cartItems, cartItemsCount, updateCartIt
           </div>
         </div>
       )}
+
+      {/* Payment Modal */}
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        cartItems={cartItems}
+        cartTotal={cartTotal}
+      />
     </>
   );
 };
