@@ -5,25 +5,25 @@ const StoreInfo: React.FC = () => {
   const storeLocations = [
     {
       id: 1,
-      name: "SuperFresh Centro",
-      address: "Av. Principal 123, Centro",
-      phone: "+1 234 567 8900",
+      name: "SuperFresh Plan 3000",
+      address: "Av. Cristo Redentor 123, Plan 3000",
+      phone: "+591 61518317",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
       image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       id: 2,
       name: "SuperFresh Norte",
-      address: "Calle 45 #567, Zona Norte",
-      phone: "+1 234 567 8901",
+      address: "Av. Banzer 456, Zona Norte",
+      phone: "+591 61518318",
       hours: "Lun-Dom: 7:00 AM - 11:00 PM",
       image: "https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=600"
     },
     {
       id: 3,
-      name: "SuperFresh Sur",
-      address: "Av. Sur 890, Zona Sur",
-      phone: "+1 234 567 8902",
+      name: "SuperFresh Equipetrol",
+      address: "Av. Equipetrol 789, Equipetrol",
+      phone: "+591 61518319",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
       image: "https://images.pexels.com/photos/6292704/pexels-photo-6292704.jpeg?auto=compress&cs=tinysrgb&w=600"
     }
@@ -88,7 +88,14 @@ const StoreInfo: React.FC = () => {
                   
                   <div className="flex items-center space-x-3">
                     <Phone className="text-emerald-600 flex-shrink-0" size={18} />
-                    <span className="text-gray-600">{store.phone}</span>
+                    <a 
+                      href={`https://wa.me/591${store.phone.replace('+591 ', '').replace(' ', '')}`}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-emerald-600 transition-colors"
+                    >
+                      {store.phone}
+                    </a>
                   </div>
                   
                   <div className="flex items-center space-x-3">
@@ -136,11 +143,18 @@ const StoreInfo: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <Mail className="text-emerald-600" size={20} />
-                  <span className="text-gray-600">info@superfresh.com</span>
+                  <span className="text-gray-600">info@superfresh.com.bo</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Phone className="text-emerald-600" size={20} />
-                  <span className="text-gray-600">+1 234 567 8900</span>
+                  <a 
+                    href="https://wa.me/59161518317" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-emerald-600 transition-colors"
+                  >
+                    +591 61518317
+                  </a>
                 </div>
               </div>
             </div>

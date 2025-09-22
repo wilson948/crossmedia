@@ -70,15 +70,17 @@ const Footer: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <MapPin className="text-emerald-400 mt-1 flex-shrink-0" size={18} />
-                <span className="text-gray-300">Av. Principal 123, Centro<br />Ciudad, País</span>
+                <span className="text-gray-300">Av. Cristo Redentor 123, Centro<br />Santa Cruz de la Sierra, Bolivia</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="text-emerald-400 flex-shrink-0" size={18} />
-                <span className="text-gray-300">+1 234 567 8900</span>
+                <a href="https://wa.me/59161518317" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-emerald-400 transition-colors">
+                  +591 61518317
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="text-emerald-400 flex-shrink-0" size={18} />
-                <span className="text-gray-300">info@superfresh.com</span>
+                <span className="text-gray-300">info@superfresh.com.bo</span>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock className="text-emerald-400 mt-1 flex-shrink-0" size={18} />

@@ -22,11 +22,13 @@ const Header: React.FC<HeaderProps> = ({ cartItems, cartItemsCount, updateCartIt
           <div className="flex items-center space-x-4 mb-1 sm:mb-0">
             <div className="flex items-center space-x-1">
               <MapPin size={16} />
-              <span>Av. Principal 123, Ciudad</span>
+              <span>Av. Cristo Redentor 123, Santa Cruz de la Sierra</span>
             </div>
             <div className="flex items-center space-x-1">
               <Phone size={16} />
-              <span>+1 234 567 8900</span>
+              <a href="https://wa.me/59161518317" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-200 transition-colors">
+                +591 61518317
+              </a>
             </div>
           </div>
           <div className="flex items-center space-x-1">
