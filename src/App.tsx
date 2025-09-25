@@ -10,6 +10,7 @@ import { CartItem } from './types';
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const addToCart = (product: any) => {
     setCartItems(prev => {
@@ -39,6 +40,14 @@ function App() {
 
   const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+  const handleCategorySelect = (categoryId: string) => {
+    setSelectedCategory(categoryId);
+    // Scroll to catalog section
+    const catalogSection = document.getElementById('catalog');
+    if (catalogSection) {
+      catalogSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50">
       <Header 
@@ -47,8 +56,12 @@ function App() {
         updateCartItem={updateCartItem}
       />
       <HeroSection />
-      <FeaturedCategories />
-      <ProductCatalog addToCart={addToCart} />
+      <FeaturedCategories onCategorySelect={handleCategorySelect} />
+      <ProductCatalog 
+        addToCart={addToCart} 
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
       <Promotions />
       <StoreInfo />
       <Footer />

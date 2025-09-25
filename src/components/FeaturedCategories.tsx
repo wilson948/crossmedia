@@ -1,7 +1,11 @@
 import React from 'react';
 import { categories } from '../data/products';
 
-const FeaturedCategories: React.FC = () => {
+interface FeaturedCategoriesProps {
+  onCategorySelect: (categoryId: string) => void;
+}
+
+const FeaturedCategories: React.FC<FeaturedCategoriesProps> = ({ onCategorySelect }) => {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4">
@@ -19,6 +23,7 @@ const FeaturedCategories: React.FC = () => {
             <div
               key={category.id}
               className="group cursor-pointer"
+              onClick={() => onCategorySelect(category.id)}
             >
               <div className="relative overflow-hidden rounded-2xl bg-gray-100 aspect-square mb-3 group-hover:scale-105 transition-transform duration-300">
                 <img
@@ -29,6 +34,11 @@ const FeaturedCategories: React.FC = () => {
                 <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-opacity duration-300"></div>
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-4xl mb-2">{category.icon}</span>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="bg-white bg-opacity-90 rounded-lg px-3 py-1 text-sm font-semibold text-gray-900">
+                    Ver productos
+                  </div>
                 </div>
               </div>
               <h3 className="text-center font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors">

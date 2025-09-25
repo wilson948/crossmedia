@@ -5,10 +5,11 @@ import { Product } from '../types';
 
 interface ProductCatalogProps {
   addToCart: (product: Product) => void;
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
 }
 
-const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart }) => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart, selectedCategory, onCategoryChange }) => {
   const [sortBy, setSortBy] = useState('name');
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -46,17 +47,42 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart }) => {
     return filtered;
   }, [selectedCategory, sortBy, searchTerm]);
 
+  const getCategoryName = (categoryId: string) => {
+    if (categoryId === 'all') return 'Todos los productos';
+    const category = categories.find(cat => cat.id === categoryId);
+    return category ? category.name : 'Productos';
+  };
+
   return (
     <section id="catalog" className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Catálogo de Productos
+            {getCategoryName(selectedCategory)}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Descubre nuestra amplia selección de productos frescos y de calidad
+            {selectedCategory === 'all' 
+              ? 'Descubre nuestra amplia selección de productos frescos y de calidad'
+              : `Explora nuestra selección de ${getCategoryName(selectedCategory).toLowerCase()}`
+            }
           </p>
         </div>
+
+        {/* Category breadcrumb */}
+        {selectedCategory !== 'all' && (
+          <div className="mb-6">
+            <nav className="flex items-center space-x-2 text-sm">
+              <button
+                onClick={() => onCategoryChange('all')}
+                className="text-emerald-600 hover:text-emerald-700 transition-colors"
+              >
+                Inicio
+              </button>
+              <span className="text-gray-400">/</span>
+              <span className="text-gray-600">{getCategoryName(selectedCategory)}</span>
+            </nav>
+          </div>
+        )}
 
         {/* Filters and Search */}
         <div className="bg-white p-6 rounded-2xl shadow-sm mb-8">
@@ -77,7 +103,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart }) => {
               <Filter size={20} className="text-gray-500" />
               <select
                 value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+                onChange={(e) => onCategoryChange(e.target.value)}
                 className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
               >
                 <option value="all">Todas las categorías</option>
@@ -104,6 +130,18 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart }) => {
               </select>
             </div>
           </div>
+        </div>
+
+        {/* Results count */}
+        <div className="mb-6">
+          <p className="text-gray-600">
+            {filteredProducts.length === 0 
+              ? 'No se encontraron productos'
+              : `Mostrando ${filteredProducts.length} producto${filteredProducts.length !== 1 ? 's' : ''}`
+            }
+            {selectedCategory !== 'all' && ` en ${getCategoryName(selectedCategory)}`}
+            {searchTerm && ` para "${searchTerm}"`}
+          </p>
         </div>
 
         {/* Products Grid */}
@@ -175,9 +213,20 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart }) => {
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-16">
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Filter className="text-gray-400" size={32} />
+            </div>
             <p className="text-xl text-gray-500">
               No se encontraron productos que coincidan con tu búsqueda.
             </p>
+            {selectedCategory !== 'all' && (
+              <button
+                onClick={() => onCategoryChange('all')}
+                className="mt-4 bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+              >
+                Ver todos los productos
+              </button>
+            )}
           </div>
         )}
       </div>
