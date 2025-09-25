@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { products, categories } from '../data/products';
-import { Star, ShoppingCart, Filter, SortAsc } from 'lucide-react';
+import { Star, ShoppingCart, Filter, Import as SortAsc } from 'lucide-react';
 import { Product } from '../types';
 
 interface ProductCatalogProps {
