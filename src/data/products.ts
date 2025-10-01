@@ -970,13 +970,12 @@ export const products = [
     brand: 'ArtisanBread',
     description: 'Pan integral artesanal con semillas y granos',
     inStock: true,
-    rating: 4.8
-  },
   {
     id: 82,
     name: 'Croissants Franceses',
     price: 8.99,
     originalPrice: 10.99,
+    image: "https://images.pexels.com/photos/533342/pexels-photo-533342.jpeg?auto=compress&cs=tinysrgb&w=600",
     image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
     image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
     brand: 'FrenchBakery',
