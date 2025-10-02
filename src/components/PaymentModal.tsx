@@ -36,7 +36,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, cartItems,
 
   const downloadQR = () => {
     const link = document.createElement('a');
-    link.href = '/qr.jpg';
+    link.href = '/Imagen de WhatsApp 2025-10-01 a las 21.23.53_63d9119c.jpg';
     link.download = 'qr-pago-superfresh.jpg';
     link.click();
   };
@@ -131,7 +131,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, cartItems,
 
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <img 
-                    src="/qr.jpg" 
+                    src="/Imagen de WhatsApp 2025-10-01 a las 21.23.53_63d9119c.jpg" 
                     alt="QR de pago Yape" 
                     className="w-64 h-64 mx-auto rounded-lg shadow-md"
                   />
