@@ -5,7 +5,7 @@ export const categories: Category[] = [
     id: "fruits",
     name: "Frutas",
     icon: "🍎",
-    image: "http
+    image: "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=600"
   {
     id: "vegetables",
     name: "Verduras",
