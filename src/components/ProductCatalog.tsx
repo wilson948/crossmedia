@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Star, ShoppingCart, Filter, Grid, List } from 'lucide-react';
+import { Star, ShoppingCart, Filter, Grid2x2 as Grid, List } from 'lucide-react';
 import { products, categories } from '../data/products';
 import { Product } from '../types';
 
