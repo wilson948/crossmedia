@@ -1,237 +1,621 @@
-import React, { useState, useMemo } from 'react';
-import { products, categories } from '../data/products';
-import { Star, ShoppingCart, Filter, Import as SortAsc } from 'lucide-react';
-import { Product } from '../types';
+import { Product, Category } from '../types';
 
-interface ProductCatalogProps {
-  addToCart: (product: Product) => void;
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
-}
+export const categories: Category[] = [
+  {
+    id: "fruits",
+    name: "Frutas",
+    icon: "🍎",
+    image: "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "vegetables",
+    name: "Verduras",
+    icon: "🥕",
+    image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "meat",
+    name: "Carnes",
+    icon: "🥩",
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "seafood",
+    name: "Pescados",
+    icon: "🐟",
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "dairy",
+    name: "Lácteos",
+    icon: "🥛",
+    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "bakery",
+    name: "Panadería",
+    icon: "🍞",
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "organic",
+    name: "Orgánicos",
+    icon: "🌱",
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "beverages",
+    name: "Bebidas",
+    icon: "🥤",
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600"
+  }
+];
 
-const ProductCatalog: React.FC<ProductCatalogProps> = ({ addToCart, selectedCategory, onCategoryChange }) => {
-  const [sortBy, setSortBy] = useState('name');
-  const [searchTerm, setSearchTerm] = useState('');
+export const products: Product[] = [
+  // Frutas y Verduras
+  {
+    id: 1,
+    name: "Manzanas Rojas Premium",
+    price: 27.77,
+    originalPrice: 34.73,
+    image: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "FreshFarm",
+    description: "Manzanas rojas crujientes y dulces, perfectas para snacks saludables",
+    inStock: true,
+    rating: 4.5,
+    discount: 20
+  },
+  {
+    id: 2,
+    name: "Plátanos Orgánicos",
+    price: 17.33,
+    image: "https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "EcoBio",
+    description: "Plátanos orgánicos maduros, ricos en potasio y fibra",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 3,
+    name: "Zanahorias Baby",
+    price: 13.85,
+    image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "GreenFields",
+    description: "Zanahorias baby tiernas y dulces, ideales para ensaladas",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 4,
+    name: "Espinacas Frescas",
+    price: 20.82,
+    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "LeafyGreens",
+    description: "Espinacas frescas ricas en hierro y vitaminas",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 5,
+    name: "Tomates Cherry",
+    price: 24.29,
+    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "SunnyVeggies",
+    description: "Tomates cherry dulces y jugosos, perfectos para ensaladas",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 6,
+    name: "Aguacates Hass",
+    price: 34.73,
+    image: "https://images.pexels.com/photos/557659/pexels-photo-557659.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "TropicalFresh",
+    description: "Aguacates Hass cremosos, ricos en grasas saludables",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 7,
+    name: "Brócoli Fresco",
+    price: 19.42,
+    image: "https://images.pexels.com/photos/47347/broccoli-vegetable-food-healthy-47347.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "GreenCrown",
+    description: "Brócoli fresco rico en vitaminas y antioxidantes",
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 8,
+    name: "Naranjas Valencia",
+    price: 22.90,
+    image: "https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "CitrusFresh",
+    description: "Naranjas Valencia jugosas, perfectas para zumo natural",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 9,
+    name: "Lechuga Romana",
+    price: 13.15,
+    image: "https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "CrispyGreens",
+    description: "Lechuga romana crujiente, base perfecta para ensaladas César",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 10,
+    name: "Fresas Orgánicas",
+    price: 41.69,
+    originalPrice: 55.62,
+    image: "https://images.pexels.com/photos/89778/strawberries-frisch-ripe-sweet-89778.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "BerryBest",
+    description: "Fresas orgánicas dulces y aromáticas, cultivadas sin pesticidas",
+    inStock: true,
+    rating: 4.9,
+    discount: 25
+  },
+  {
+    id: 11,
+    name: "Cebollas Rojas",
+    price: 13.85,
+    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 62.58,
+    brand: "FreshVeggies",
+    description: "Cebollas rojas frescas, perfectas para ensaladas y guisos",
+    inStock: true,
+    rating: 4.1
+  },
+  {
+    id: 12,
+    name: "Limones Frescos",
+    price: 17.33,
+    image: "https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "CitrusFresh",
+    description: "Limones frescos jugosos, ricos en vitamina C",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 13,
+    name: "Apio Fresco",
+    price: 15.64,
+    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "CrispyGreens",
+    description: "Apio fresco crujiente, ideal para jugos y ensaladas",
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 14,
+    name: "Peras Anjou",
+    price: 27.77,
+    image: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "OrchardFresh",
+    description: "Peras Anjou dulces y jugosas, perfectas para postres",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 15,
+    name: "Pepinos Orgánicos",
+    price: 20.82,
+    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "EcoBio",
+    description: "Pepinos orgánicos frescos, ideales para ensaladas",
+    inStock: true,
+    rating: 4.3
+  },
 
-  const filteredProducts = useMemo(() => {
-    let filtered = products;
+  // Carnes y Pescados
+  {
+    id: 16,
+    name: "Pechuga de Pollo Sin Piel",
+    price: 62.58,
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "FarmFresh",
+    description: "Pechuga de pollo fresca sin piel, alta en proteínas",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 17,
+    name: "Carne de Res Premium",
+    price: 111.29,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "PrimeCuts",
+    description: "Carne de res premium, perfecta para asados y parrillas",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 18,
+    name: "Salmón Atlántico",
+    price: 173.95,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "OceanFresh",
+    description: "Salmón atlántico fresco, rico en omega-3",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 19,
+    name: "Camarones Jumbo",
+    price: 132.17,
+    image: "https://images.pexels.com/photos/725990/pexels-photo-725990.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "SeaDelights",
+    description: "Camarones jumbo frescos, ideales para platos gourmet",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 20,
+    name: "Chuletas de Cerdo",
+    price: 90.42,
+    image: "https://images.pexels.com/photos/3688/food-dinner-lunch-unhealthy.jpg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "PorkPrime",
+    description: "Chuletas de cerdo tiernas y jugosas",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 21,
+    name: "Atún Fresco",
+    price: 160.02,
+    image: "https://images.pexels.com/photos/725992/pexels-photo-725992.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "TunaSelect",
+    description: "Atún fresco de calidad sashimi",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 22,
+    name: "Pavo Molido",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/616401/pexels-photo-616401.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "LeanMeat",
+    description: "Pavo molido magro, opción saludable alta en proteínas",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 23,
+    name: "Bacalao Fresco",
+    price: 139.16,
+    image: "https://images.pexels.com/photos/725993/pexels-photo-725993.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "NordicFish",
+    description: "Bacalao fresco del Atlántico Norte",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 24,
+    name: "Costillas de Res",
+    price: 118.25,
+    image: "https://images.pexels.com/photos/1539685/pexels-photo-1539685.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "BBQMaster",
+    description: "Costillas de res perfectas para barbacoa",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 25,
+    name: "Cangrejo Real",
+    price: 320.09,
+    originalPrice: 389.69,
+    image: "https://images.pexels.com/photos/725994/pexels-photo-725994.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "RoyalSea",
+    description: "Cangrejo real de Alaska, delicadeza marina premium",
+    inStock: true,
+    rating: 4.9,
+    discount: 18
+  },
 
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => product.category === selectedCategory);
-    }
+  // Lácteos
+  {
+    id: 26,
+    name: "Leche Entera Orgánica",
+    price: 31.25,
+    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "PureDairy",
+    description: "Leche entera orgánica de vacas alimentadas con pasto",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 27,
+    name: "Queso Cheddar Añejo",
+    price: 55.62,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "CheeseWorks",
+    description: "Queso cheddar añejo con sabor intenso y textura cremosa",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 28,
+    name: "Yogur Griego Natural",
+    price: 41.69,
+    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "GreekGold",
+    description: "Yogur griego natural cremoso, alto en proteínas",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 29,
+    name: "Mantequilla Artesanal",
+    price: 45.18,
+    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "CreamyCraft",
+    description: "Mantequilla artesanal hecha con crema fresca",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 30,
+    name: "Queso Mozzarella Fresca",
+    price: 62.58,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "ItalianStyle",
+    description: "Mozzarella fresca italiana, perfecta para caprese",
+    inStock: true,
+    rating: 4.6
+  },
 
-    // Filter by search term
-    if (searchTerm) {
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.brand.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+  // Panadería
+  {
+    price: 27.77,
+    name: "Pan Integral Artesanal",
+    price: 27.77,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "ArtisanBread",
+    description: "Pan integral artesanal horneado diariamente",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 32,
+    name: "Croissants Franceses",
+    price: 20.82,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "FrenchBake",
+    description: "Croissants franceses mantecosos y hojaldrados",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 33,
+    name: "Muffins de Arándanos",
+    price: 31.25,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "BerryBake",
+    description: "Muffins esponjosos con arándanos frescos",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 34,
+    name: "Baguette Tradicional",
+    price: 17.33,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "ClassicBread",
+    description: "Baguette francesa tradicional con corteza crujiente",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 35,
+    name: "Donuts Glaseados",
+    price: 41.69,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "SweetTreats",
+    description: "Donuts glaseados frescos, perfectos para el desayuno",
+    inStock: true,
+    rating: 4.4
+  },
 
-    // Sort products
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
-        case 'rating':
-          return b.rating - a.rating;
-        case 'name':
-        default:
-          return (a.name || '').localeCompare(b.name || '');
-      }
-    });
+  // Productos Orgánicos
+  {
+    price: 29.86,
+    name: "Quinoa Orgánica",
+    price: 62.58,
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "SuperGrain",
+    description: "Quinoa orgánica boliviana, superalimento completo",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    price: 90.42,
+    name: "Aceite de Oliva Extra Virgen",
+    price: 90.42,
+    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "MediterraneanGold",
+    description: "Aceite de oliva extra virgen prensado en frío",
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    price: 26.38,
+    name: "Miel de Abeja Pura",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "BeeNatural",
+    description: "Miel de abeja pura sin procesar",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    price: 62.58,
+    name: "Arroz Integral Orgánico",
+    price: 41.69,
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "GrainPure",
+    description: "Arroz integral orgánico de grano largo",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    price: 20.82,
+    name: "Semillas de Chía",
+    price: 55.62,
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "SuperSeeds",
+    description: "Semillas de chía orgánicas ricas en omega-3",
+    inStock: true,
+    rating: 4.6
+  },
 
-    return filtered;
-  }, [selectedCategory, sortBy, searchTerm]);
-
-  const getCategoryName = (categoryId: string) => {
-    if (categoryId === 'all') return 'Todos los productos';
-    const category = categories.find(cat => cat.id === categoryId);
-    return category ? category.name : 'Productos';
-  };
-
-  return (
-    <section id="catalog" className="py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            {getCategoryName(selectedCategory)}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            {selectedCategory === 'all' 
-              ? 'Descubre nuestra amplia selección de productos frescos y de calidad'
-              : `Explora nuestra selección de ${getCategoryName(selectedCategory).toLowerCase()}`
-            }
-          </p>
-        </div>
-
-        {/* Category breadcrumb */}
-        {selectedCategory !== 'all' && (
-          <div className="mb-6">
-            <nav className="flex items-center space-x-2 text-sm">
-              <button
-                onClick={() => onCategoryChange('all')}
-                className="text-emerald-600 hover:text-emerald-700 transition-colors"
-              >
-                Inicio
-              </button>
-              <span className="text-gray-400">/</span>
-              <span className="text-gray-600">{getCategoryName(selectedCategory)}</span>
-            </nav>
-          </div>
-        )}
-
-        {/* Filters and Search */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm mb-8">
-          <div className="flex flex-col lg:flex-row gap-4 items-center">
-            {/* Search */}
-            <div className="flex-1 w-full lg:w-auto">
-              <input
-                type="text"
-                placeholder="Buscar productos..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex items-center space-x-2">
-              <Filter size={20} className="text-gray-500" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => onCategoryChange(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-              >
-                <option value="all">Todas las categorías</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Sort */}
-            <div className="flex items-center space-x-2">
-              <SortAsc size={20} className="text-gray-500" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
-              >
-                <option value="name">Nombre</option>
-                <option value="price-low">Precio: Menor a Mayor</option>
-                <option value="price-high">Precio: Mayor a Menor</option>
-                <option value="rating">Calificación</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Results count */}
-        <div className="mb-6">
-          <p className="text-gray-600">
-            {filteredProducts.length === 0 
-              ? 'No se encontraron productos'
-              : `Mostrando ${filteredProducts.length} producto${filteredProducts.length !== 1 ? 's' : ''}`
-            }
-            {selectedCategory !== 'all' && ` en ${getCategoryName(selectedCategory)}`}
-            {searchTerm && ` para "${searchTerm}"`}
-          </p>
-        </div>
-
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredProducts.map((product) => (
-            <div
-              key={product.id}
-              className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
-            >
-              <div className="relative">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                {product.discount && (
-                  <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-lg text-sm font-semibold">
-                    -{product.discount}%
-                  </div>
-                )}
-                <button
-                  onClick={() => addToCart(product)}
-                  className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-emerald-50 hover:text-emerald-600 transition-colors opacity-0 group-hover:opacity-100"
-                >
-                  <ShoppingCart size={18} />
-                </button>
-              </div>
-
-              <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-500 font-medium">{product.brand}</span>
-                  <div className="flex items-center space-x-1">
-                    <Star size={14} className="text-yellow-400 fill-current" />
-                    <span className="text-sm text-gray-600">{product.rating}</span>
-                  </div>
-                </div>
-
-                <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
-                  {product.name}
-                </h3>
-
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                  {product.description}
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xl font-bold text-emerald-600">
-                      ${product.price}
-                    </span>
-                    {product.originalPrice && (
-                      <span className="text-sm text-gray-500 line-through">
-                        ${product.originalPrice}
-                      </span>
-                    )}
-                  </div>
-                  <button
-                    onClick={() => addToCart(product)}
-                    className="bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center space-x-2"
-                  >
-                    <ShoppingCart size={16} />
-                    <span className="hidden sm:inline">Agregar</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-16">
-            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Filter className="text-gray-400" size={32} />
-            </div>
-            <p className="text-xl text-gray-500">
-              No se encontraron productos que coincidan con tu búsqueda.
-            </p>
-            {selectedCategory !== 'all' && (
-              <button
-                onClick={() => onCategoryChange('all')}
-                className="mt-4 bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
-              >
-                Ver todos los productos
-              </button>
-            )}
-          </div>
-        )}
-      </div>
-    </section>
-  );
-};
-
-export default ProductCatalog;
+  // Bebidas
+  {
+    price: 62.58,
+    name: "Agua Mineral Natural",
+    price: 13.85,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "PureSpring",
+    description: "Agua mineral natural de manantial",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    price: 90.42,
+    name: "Jugo de Naranja Natural",
+    price: 34.73,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "FreshSqueeze",
+    description: "Jugo de naranja 100% natural sin azúcar añadido",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    price: 69.54,
+    name: "Café Orgánico en Grano",
+    price: 90.42,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "MountainRoast",
+    description: "Café orgánico en grano tostado medio",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    price: 41.69,
+    name: "Kombucha de Jengibre",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "FermentedLife",
+    description: "Kombucha probiótica con jengibre fresco",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    price: 55.62,
+    name: "Smoothie Verde",
+    price: 48.67,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "GreenBlend",
+    description: "Smoothie verde con espinaca, manzana y jengibre",
+    inStock: true,
+    rating: 4.5
+  }
+];
+    price: 27.77,
+    price: 83.46,
+    price: 66.05,
+    price: 48.67,
+    price: 59.09,
+    price: 13.85,
+    price: 34.73,
+    price: 90.42,
+    price: 38.21,
+    price: 48.67,
+    price: 27.77,
+    price: 132.17,
+    price: 55.62,
+    price: 31.25,
+    price: 62.58,
+    price: 34.73,
+    price: 55.62,
+    price: 41.69,
+    price: 45.18,
+    price: 27.77,
+    price: 20.82,
+    price: 31.25,
+    price: 24.29,
+    price: 20.82,
+    price: 62.58,
+    price: 48.67,
+    price: 27.77,
+    price: 31.25,
+    price: 62.58,
+    price: 41.69,
+    price: 38.21,
+    price: 20.82,
+    price: 34.73,
+    price: 55.62,
+    price: 24.29,
+    price: 55.62,
+    price: 69.54,
+    price: 34.73,
+    price: 41.69,
+    price: 90.42,
+    price: 45.18,
+    price: 62.58,
+    price: 208.70,
+    price: 173.95,
+    price: 111.29,
+    price: 132.17,
+    price: 90.42,
+    price: 62.58,
+    price: 104.38,
+    price: 173.95,
+    price: 48.67,
+    price: 208.70,
+    price: 69.54,
+    price: 118.25,

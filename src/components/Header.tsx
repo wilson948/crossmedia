@@ -1,232 +1,1997 @@
-import React, { useState } from 'react';
-import { Search, ShoppingCart, Menu, X, MapPin, Phone, Clock } from 'lucide-react';
-import { CartItem } from '../types';
-import PaymentModal from './PaymentModal';
+export const categories = [
+  {
+    id: 'frutas',
+    name: 'Frutas',
+    icon: '🍎',
+    image: 'https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'verduras',
+    name: 'Verduras',
+    icon: '🥕',
+    image: 'https://images.pexels.com/photos/1300972/pexels-photo-1300972.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'carnes',
+    name: 'Carnes',
+    icon: '🥩',
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'lacteos',
+    name: 'Lácteos',
+    icon: '🥛',
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'panaderia',
+    name: 'Panadería',
+    icon: '🍞',
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'pescados',
+    name: 'Pescados',
+    icon: '🐟',
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'granos',
+    name: 'Granos y Cereales',
+    icon: '🌾',
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400'
+  },
+  {
+    id: 'aceites',
+    name: 'Aceites',
+    icon: '🫒',
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400'
+  }
+];
 
-interface HeaderProps {
-  cartItems: CartItem[];
-  cartItemsCount: number;
-  updateCartItem: (id: number, quantity: number) => void;
-}
+export const products = [
+  // FRUTAS - 20 productos únicos
+  {
+    id: 1,
+    name: 'Manzanas Rojas Premium',
+    price: 28.50,
+    price: 27.77,
+    originalPrice: 34.73,
+    image: 'https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'FreshFruit',
+    description: 'Manzanas rojas crujientes y dulces, perfectas para snacks saludables',
+    inStock: true,
+    rating: 4.8,
+    discount: 20
+  },
+  {
+    id: 2,
+    name: 'Plátanos Orgánicos',
+    price: 18.00,
+    image: "https://images.pexels.com/photos/61127/pexels-photo-61127.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'EcoBanana',
+    description: 'Plátanos maduros y cremosos, ricos en potasio y fibra natural',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 3,
+    name: 'Aguacates Hass',
+    price: 35.50,
+    originalPrice: 42.00,
+    image: 'https://images.pexels.com/photos/557659/pexels-photo-557659.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'GreenGold',
+    description: 'Aguacates cremosos perfectos para guacamole y ensaladas',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    id: 4,
+    name: 'Naranjas Valencia',
+    price: 25.00,
+    image: "https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'CitrusMax',
+    description: 'Naranjas jugosas ideales para zumo fresco matutino',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 5,
+    name: 'Fresas Frescas',
+    price: 42.50,
+    image: "https://images.pexels.com/photos/46174/strawberries-berries-fruit-freshness-46174.jpeg?auto=compress&cs=tinysrgb&w=600",
+    originalPrice: 8.99,
+    image: 'https://images.pexels.com/photos/89778/strawberries-frisch-ripe-sweet-89778.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'BerryBest',
+    description: 'Fresas dulces y aromáticas, perfectas para postres y batidos',
+    inStock: true,
+    rating: 4.8,
+    discount: 22
+  },
+  {
+    id: 6,
+    name: 'Uvas Rojas Sin Semilla',
+    price: 32.00,
+    image: "https://images.pexels.com/photos/23042/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/23042/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'VineSweet',
+    description: 'Uvas rojas dulces y crujientes, sin semillas para mayor comodidad',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 7,
+    name: 'Piña Golden',
+    price: 50.00,
+    image: "https://images.pexels.com/photos/1071878/pexels-photo-1071878.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/947879/pexels-photo-947879.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'TropicalFresh',
+    description: 'Piña madura y jugosa con sabor tropical intenso',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 8,
+    name: 'Mangos Tommy',
+    price: 28.50,
+    image: "https://images.pexels.com/photos/2294471/pexels-photo-2294471.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/918327/pexels-photo-918327.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'MangoKing',
+    description: 'Mangos dulces y aromáticos, perfectos para comer frescos',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 9,
+    name: 'Peras Anjou',
+    price: 30.50,
+    image: "https://images.pexels.com/photos/209449/pexels-photo-209449.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/568471/pexels-photo-568471.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'PearPerfect',
+    description: 'Peras jugosas y suaves con textura mantecosa',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 10,
+    name: 'Kiwis Verdes',
+    price: 39.00,
+    image: "https://images.pexels.com/photos/1414111/pexels-photo-1414111.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'KiwiGreen',
+    description: 'Kiwis ricos en vitamina C con sabor agridulce refrescante',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 11,
+    name: 'Limones Amarillos',
+    price: 21.50,
+    image: "https://images.pexels.com/photos/1414239/pexels-photo-1414239.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1414110/pexels-photo-1414110.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'CitrusMax',
+    description: 'Limones jugosos perfectos para aderezos y bebidas',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 12,
+    name: 'Sandía Dulce',
+    price: 64.00,
+    image: "https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'WaterMelon Co',
+    description: 'Sandía jugosa y refrescante, perfecta para el verano',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 13,
+    name: 'Melón Cantaloupe',
+    price: 53.50,
+    image: "https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'MelonFresh',
+    description: 'Melón aromático y dulce con pulpa naranja jugosa',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 14,
+    name: 'Duraznos Amarillos',
+    price: 35.50,
+    image: "https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'PeachPerfect',
+    description: 'Duraznos maduros y jugosos con aroma dulce',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 15,
+    price: 22.90,
+    price: 92.50,
+    originalPrice: 15.99,
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'CherryTop',
+    description: 'Cerezas dulces y crujientes, perfectas para snacks gourmet',
+    inStock: true,
+    rating: 4.9,
+    discount: 19
+  },
+    price: 15.24,
+    id: 16,
+    name: 'Papaya Tropical',
+    price: 42.50,
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'TropicalFresh',
+    description: 'Papaya madura con sabor dulce y textura suave',
+    inStock: true,
+    rating: 4.5
+  },
+    price: 31.25,
+    id: 17,
+    name: 'Arándanos Azules',
+    price: 57.00,
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'BerryBest',
+    description: 'Arándanos frescos ricos en antioxidantes naturales',
+    inStock: true,
+    rating: 4.8
+  },
+    price: 26.38,
+    id: 18,
+    name: 'Granada Roja',
+    price: 46.50,
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'PomegranateKing',
+    description: 'Granada jugosa con semillas dulces y nutritivas',
+    inStock: true,
+    rating: 4.6
+  },
+    price: 41.69,
+    id: 19,
+    name: 'Coco Fresco',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'CocoTropical',
+    description: 'Coco fresco con agua natural y pulpa cremosa',
+    inStock: true,
+    rating: 4.4
+  },
+    price: 13.15,
+    id: 20,
+    name: 'Maracuyá Aromática',
+    price: 60.50,
+    image: 'https://images.pexels.com/photos/1313267/pexels-photo-1313267.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'frutas',
+    brand: 'PassionFruit',
+    description: 'Maracuyá con aroma intenso y sabor agridulce único',
+    inStock: true,
+    rating: 4.7
+  },
+    price: 27.77,
+  // VERDURAS - 20 productos únicos
+  {
+    id: 21,
+    name: 'Tomates Cherry Orgánicos',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'OrganicGreen',
+    description: 'Tomates cherry dulces y jugosos, perfectos para ensaladas',
+    inStock: true,
+    price: 13.85,
+  },
+  {
+    id: 22,
+    name: 'Lechuga Romana Fresca',
+    price: 18.00,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'GreenLeaf',
+    description: 'Lechuga crujiente ideal para ensaladas César',
+    inStock: true,
+    price: 29.86,
+  },
+  {
+    id: 23,
+    name: 'Zanahorias Baby',
+    price: 23.50,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'BabyVeggies',
+    description: 'Zanahorias tiernas y dulces, perfectas para snacks',
+    inStock: true,
+    rating: 4.7
+  },
+    price: 62.57,
+    id: 24,
+    name: 'Brócoli Verde',
+    price: 28.50,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'GreenPower',
+    description: 'Brócoli fresco rico en vitaminas y minerales',
+    inStock: true,
+    rating: 4.5
+  },
+    price: 90.42,
+    id: 25,
+    name: 'Espinacas Frescas',
+    price: 21.50,
+    originalPrice: 3.99,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'LeafyGreens',
+    description: 'Espinacas tiernas ricas en hierro y folato',
+    inStock: true,
+    rating: 4.6,
+    price: 173.93,
+  },
+  {
+    id: 26,
+    name: 'Pepinos Largos',
+    price: 20.00,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'CrispyVeg',
+    description: 'Pepinos crujientes y refrescantes para ensaladas',
+    inStock: true,
+    price: 132.17,
+  },
+  {
+    id: 27,
+    name: 'Pimientos Rojos',
+    price: 32.00,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'BellPepper Co',
+    description: 'Pimientos rojos dulces y crujientes',
+    inStock: true,
+    price: 118.25,
+  },
+  {
+    id: 28,
+    name: 'Cebollas Blancas',
+    price: 14.50,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'OnionFresh',
+    description: 'Cebollas blancas aromáticas para cocinar',
+    inStock: true,
+    price: 69.53,
+  },
+  {
+    id: 29,
+    name: 'Apio Verde',
+    price: 18.00,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'CrunchyVeg',
+    description: 'Apio crujiente perfecto para sopas y jugos',
+    inStock: true,
+    price: 83.46,
+  },
+  {
+    id: 30,
+    name: 'Calabacín Verde',
+    price: 25.00,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'SquashFresh',
+    description: 'Calabacín tierno ideal para salteados y gratinados',
+    inStock: true,
+    price: 160.00,
+  },
+  {
+    id: 31,
+    name: 'Coliflor Blanca',
+    price: 30.50,
+    image: "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'WhiteVeg',
+    description: 'Coliflor fresca perfecta para purés y gratinados',
+    price: 48.65,
+    rating: 4.4
+  },
+  {
+    id: 32,
+    name: 'Rábanos Rojos',
+    price: 21.50,
+    image: "https://images.pexels.com/photos/128536/pexels-photo-128536.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'RadishFresh',
+    price: 139.13,
+    inStock: true,
+    rating: 4.1
+  },
+  {
+    id: 33,
+    name: 'Berenjenas Moradas',
+    price: 28.50,
+    image: "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    price: 104.33,
+    description: 'Berenjenas frescas ideales para moussaka y ratatouille',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 34,
+    name: 'Acelgas Verdes',
+    price: 20.00,
+    image: "https://images.pexels.com/photos/533342/pexels-photo-533342.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    price: 187.85,
+    brand: 'LeafyGreens',
+    description: 'Acelgas nutritivas con tallos crujientes',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 35,
+    name: 'Choclo Amarillo',
+    price: 32.00,
+    image: "https://images.pexels.com/photos/321551/pexels-photo-321551.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 76.49,
+    category: 'verduras',
+    brand: 'CornGold',
+    description: 'Choclo dulce y tierno, perfecto para hervir o asar',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 36,
+    name: 'Arvejas Verdes',
+    price: 35.50,
+    price: 201.77,
+    originalPrice: 5.49,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'GreenPeas',
+    description: 'Arvejas frescas y dulces en vaina',
+    inStock: true,
+    rating: 4.5,
+    discount: 18
+  },
+  {
+    price: 229.61,
+    image: "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 27.00,
+    price: 3.79,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'GreenBeans',
+    description: 'Vainitas tiernas y crujientes para salteados',
+    inStock: true,
+    rating: 4.4
+  },
+    price: 320.09,
+    id: 38,
+    image: "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 21.50,
+    price: 2.99,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'RedRoot',
+    description: 'Remolacha dulce rica en antioxidantes',
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    price: 34.73,
+    image: "https://images.pexels.com/photos/1656666/pexels-photo-1656666.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: 'Nabo Blanco',
+    price: 18.00,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'RootVeg',
+    description: 'Nabo fresco perfecto para sopas y guisos',
+    inStock: true,
+    rating: 4.0
+  },
+    price: 62.57,
+    id: 40,
+    image: "https://images.pexels.com/photos/533342/pexels-photo-533342.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: 'Perejil Rizado',
+    price: 14.50,
+    image: 'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'verduras',
+    brand: 'HerbFresh',
+    description: 'Perejil aromático para condimentar y decorar',
+    inStock: true,
+    rating: 4.3
+    price: 38.21,
 
-const Header: React.FC<HeaderProps> = ({ cartItems, cartItemsCount, updateCartItem }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  // CARNES - 20 productos únicos
+  {
+    image: "https://images.pexels.com/photos/533342/pexels-photo-533342.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 41,
+    name: 'Pollo Entero Fresco',
+    price: 92.50,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'PoultryFresh',
+    price: 48.65,
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 42,
+    name: 'Carne de Res Premium',
+    price: 135.50,
+    originalPrice: 29.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    price: 55.61,
+    brand: 'BeefPrime',
+    description: 'Carne de res de primera calidad, perfecta para asados',
+    inStock: true,
+    rating: 4.9,
+    discount: 17
+  },
+  {
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 43,
+    name: 'Chuletas de Cerdo',
+    price: 27.77,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'PorkSelect',
+    description: 'Chuletas de cerdo jugosas y tiernas',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 44,
+    price: 69.53,
+    price: 85.50,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'ChickenBest',
+    description: 'Pechuga de pollo sin hueso, alta en proteínas',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 45,
+    price: 31.25,
+    price: 71.50,
+    price: 13.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'GroundMeat Co',
+    description: 'Carne molida magra 90/10, perfecta para hamburguesas',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    price: 76.49,
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 121.50,
+    price: 22.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'BBQMaster',
+    description: 'Costillas de cerdo ideales para barbacoa',
+    inStock: true,
+    rating: 4.8
+  },
+    price: 34.73,
+    id: 47,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 64.00,
+    price: 9.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'ChickenFresh',
+    description: 'Muslos de pollo jugosos con piel',
+    inStock: true,
+    rating: 4.4
+    price: 41.69,
+  {
+    id: 48,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 164.00,
+    price: 28.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'SteakHouse',
+    description: 'Bistec de res tierno y sabroso para parrilla',
+    inStock: true,
+    price: 45.18,
+  },
+  {
+    id: 49,
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 57.00,
+    price: 8.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'WurstGerman',
+    description: 'Salchichas alemanas tradicionales de cerdo',
+    price: 90.42,
+    rating: 4.3
+  },
+  {
+    id: 50,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 142.50,
+    price: 142.50,
+    originalPrice: 23.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    price: 41.69,
+    description: 'Lomo de cerdo magro y tierno',
+    inStock: true,
+    rating: 4.7,
+    discount: 17
+  },
+  {
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 51,
+    name: 'Alitas de Pollo',
+    price: 78.50,
+    price: 79.96,
+    category: 'carnes',
+    brand: 'WingMaster',
+    description: 'Alitas de pollo frescas para freír u hornear',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 52,
+    name: 'Cordero Tierno',
+    price: 48.65,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'LambSelect',
+    description: 'Cordero tierno de alta calidad',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 53,
+    name: 'Tocino Ahumado',
+    price: 60.50,
+    price: 34.73,
+    category: 'carnes',
+    brand: 'SmokedMeats',
+    description: 'Tocino ahumado crujiente y sabroso',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 54,
+    name: 'Chorizo Español',
+    price: 48.65,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'IbericoMeats',
+    description: 'Chorizo español curado con pimentón',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 59.09,
+    name: 'Pavo Orgánico',
+    price: 178.50,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'OrganicTurkey',
+    description: 'Pavo orgánico libre de antibióticos',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 56,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 13.85,
+    price: 35.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'SerranoGourmet',
+    description: 'Jamón serrano curado 18 meses',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    id: 57,
+    price: 34.73,
+    price: 99.50,
+    price: 17.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'TurkeyFresh',
+    description: 'Pechuga de pavo baja en grasa',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    price: 90.42,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    name: 'Ternera Premium',
+    price: 278.50,
+    originalPrice: 44.99,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'VealPrime',
+    description: 'Ternera tierna de la más alta calidad',
+    inStock: true,
+    rating: 4.9,
+    price: 38.21,
+  },
+  {
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 59,
+    name: 'Mortadela Italiana',
+    price: 50.00,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'ItalianMeats',
+    description: 'Mortadela italiana con pistachos',
+    price: 48.67,
+    rating: 4.4
+  },
+  {
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 60,
+    name: 'Pastrami Ahumado',
+    price: 128.50,
+    image: 'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'carnes',
+    brand: 'DeliMeats',
+    price: 27.77,
+    inStock: true,
+    rating: 4.6
+  },
 
-  const cartTotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  // LÁCTEOS - 20 productos únicos
+  {
+    id: 61,
+    name: 'Leche Entera Orgánica',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    price: 132.17,
+    brand: 'OrganicMilk',
+    description: 'Leche entera orgánica de vacas alimentadas con pasto',
+    inStock: true,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.8
+  },
+  {
+    id: 62,
+    name: 'Yogur Griego Natural',
+    price: 28.50,
+    price: 55.62,
+    category: 'lacteos',
+    brand: 'GreekYogurt Co',
+    description: 'Yogur griego cremoso alto en proteínas',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 63,
+    name: 'Queso Manchego Curado',
+    price: 31.25,
+    originalPrice: 22.99,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'ManchegoSelect',
+    description: 'Queso manchego curado 12 meses',
+    inStock: true,
+    rating: 4.9,
+    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    discount: 17
+  },
+    price: 62.58,
+    id: 64,
+    name: 'Mantequilla Sin Sal',
+    price: 39.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'CreamyButter',
+    description: 'Mantequilla cremosa sin sal para cocinar',
+    inStock: true,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.6
+  },
+  {
+    price: 34.73,
+    name: 'Mozzarella Fresca',
+    price: 57.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'ItalianCheese',
+    description: 'Mozzarella fresca italiana en salmuera',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    price: 55.62,
+    id: 66,
+    name: 'Crema de Leche Espesa',
+    price: 25.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'HeavyCream',
+    description: 'Crema de leche espesa para cocinar y postres',
+    inStock: true,
+    rating: 4.5
+  },
+    price: 41.69,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 67,
+    name: 'Queso Cheddar Maduro',
+    price: 64.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'CheddarKing',
+    description: 'Queso cheddar maduro con sabor intenso',
+    inStock: true,
+    rating: 4.7
+    price: 45.18,
+  {
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 68,
+    name: 'Leche Descremada',
+    price: 32.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'SkimMilk',
+    description: 'Leche descremada baja en grasa',
+    inStock: true,
+    price: 27.77,
+  },
+  {
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 69,
+    name: 'Yogur con Frutas',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'FruitYogurt',
+    description: 'Yogur cremoso con trozos de frutas naturales',
+    price: 20.82,
+    rating: 4.4
+  },
+  {
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 70,
+    name: 'Queso Parmesano',
+    price: 114.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'ParmigianoKing',
+    price: 31.25,
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 71,
+    name: 'Leche de Almendras',
+    price: 42.50,
+    originalPrice: 8.99,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    price: 24.29,
+    brand: 'AlmondMilk Co',
+    description: 'Leche de almendras sin azúcar añadido',
+    inStock: true,
+    rating: 4.9,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    discount: 22
+  },
+  {
+    id: 72,
+    name: 'Queso Gouda Holandés',
+    price: 20.82,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'DutchCheese',
+    description: 'Queso gouda holandés cremoso y suave',
+    inStock: true,
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.6
+  },
+  {
+    id: 73,
+    price: 62.58,
+    price: 53.50,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'KefirLife',
+    description: 'Kéfir rico en probióticos para la salud digestiva',
+    inStock: true,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.7
+  },
+  {
+    id: 74,
+    name: 'Queso Ricotta',
+    price: 48.67,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'ItalianFresh',
+    description: 'Queso ricotta fresco para lasañas y postres',
+    inStock: true,
+    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.5
+  },
+  {
+    id: 75,
+    price: 27.77,
+    price: 28.50,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'SweetMilk',
+    description: 'Leche condensada dulce para postres',
+    inStock: true,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.4
+  },
+  {
+    price: 31.25,
+    name: 'Queso Brie Francés',
+    price: 99.50,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'FrenchCheese',
+    description: 'Queso brie francés cremoso y suave',
+    inStock: true,
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.8
+  },
+    price: 62.58,
+    id: 77,
+    name: 'Suero de Leche',
+    price: 21.50,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'Buttermilk Co',
+    description: 'Suero de leche para panqueques y horneados',
+    inStock: true,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    rating: 4.2
+    price: 41.69,
+  {
+    id: 78,
+    name: 'Queso Azul Roquefort',
+    price: 22.99,
+    originalPrice: 26.99,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'BlueCheeseKing',
+    description: 'Queso azul roquefort francés intenso',
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 38.21,
+    rating: 4.6,
+    discount: 15
+  },
+  {
+    id: 79,
+    name: 'Leche Evaporada',
+    price: 18.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    brand: 'EvaporatedMilk Co',
+    price: 20.82,
+    description: 'Leche evaporada concentrada para cocinar',
+    inStock: true,
+    rating: 4.1
+  },
+  {
+    id: 80,
+    name: 'Queso Camembert',
+    price: 89.00,
+    image: 'https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'lacteos',
+    price: 34.73,
+    image: "https://images.pexels.com/photos/236010/pexels-photo-236010.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Queso camembert francés cremoso',
+    inStock: true,
+    rating: 4.7
+  },
 
-  const handleCheckout = () => {
-    setIsCartOpen(false);
-    setIsPaymentModalOpen(true);
-  };
+  // PANADERÍA - 20 productos únicos
+  {
+    id: 81,
+    name: 'Pan Integral Artesanal',
+    price: 55.62,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: 'panaderia',
+    brand: 'ArtisanBread',
+    description: 'Pan integral artesanal con semillas y granos',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 82,
+    price: 24.29,
+    price: 50.00,
+    originalPrice: 10.99,
+    image: "https://images.pexels.com/photos/533342/pexels-photo-533342.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    brand: 'FrenchBakery',
+    description: 'Croissants mantecosos estilo francés',
+    inStock: true,
+    rating: 4.9,
+    discount: 18
+  },
+    price: 55.62,
+    id: 83,
+    name: 'Pan de Molde Blanco',
+    price: 25.00,
+    image: "https://images.pexels.com/photos/2135/food-france-morning-breakfast.jpg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'SoftBread',
+    description: 'Pan de molde suave perfecto para sándwiches',
+    inStock: true,
+    rating: 4.5
+    price: 69.54,
+  {
+    id: 84,
+    name: 'Bagels de Sésamo',
+    price: 39.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'BagelFresh',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Bagels frescos con semillas de sésamo',
+    inStock: true,
+    price: 34.73,
+  },
+  {
+    id: 85,
+    name: 'Pan de Centeno',
+    price: 32.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'RyeBread Co',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Pan de centeno denso y nutritivo',
+    price: 41.69,
+    rating: 4.4
+  },
+  {
+    id: 86,
+    name: 'Muffins de Arándanos',
+    price: 57.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'MuffinMaster',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 90.42,
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 87,
+    name: 'Baguette Francesa',
+    price: 28.50,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'FrenchBaguette',
+    price: 45.18,
+    description: 'Baguette crujiente tradicional francesa',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 88,
+    name: 'Donuts Glaseados',
+    price: 64.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    price: 62.58,
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Donuts suaves con glaseado dulce',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 89,
+    name: 'Pan de Avena',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    price: 208.70,
+    brand: 'OatBread',
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Pan nutritivo con avena y miel',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 90,
+    name: 'Cupcakes de Vainilla',
+    price: 71.50,
+    price: 173.95,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    brand: 'CupcakeQueen',
+    description: 'Cupcakes de vainilla con frosting cremoso',
+    inStock: true,
+    rating: 4.8,
+    discount: 19
+  },
+  {
+    price: 111.29,
+    name: 'Pan Pita Integral',
+    price: 28.50,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: 'panaderia',
+    brand: 'PitaBread',
+    description: 'Pan pita integral perfecto para rellenos',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 92,
+    price: 132.17,
+    price: 85.50,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: 'panaderia',
+    brand: 'ChocolateBrownie',
+    description: 'Brownies húmedos con chocolate belga',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    price: 90.42,
+    name: 'Pan de Maíz',
+    price: 32.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: 'panaderia',
+    brand: 'CornBread Co',
+    description: 'Pan de maíz dulce estilo sureño',
+    inStock: true,
+    rating: 4.4
+  },
+    price: 62.58,
+    id: 94,
+    name: 'Galletas de Avena',
+    price: 50.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'OatCookies',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Galletas crujientes de avena con pasas',
+    inStock: true,
+    rating: 4.5
+    price: 104.38,
+  {
+    id: 95,
+    name: 'Focaccia con Hierbas',
+    price: 53.50,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'ItalianFocaccia',
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Focaccia italiana con romero y aceite de oliva',
+    inStock: true,
+    price: 173.95,
+  },
+  {
+    id: 96,
+    name: 'Tartas de Frutas',
+    price: 114.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    brand: 'FruitTarts',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    description: 'Tartas individuales con frutas de temporada',
+    price: 48.67,
+    rating: 4.8
+  },
+  {
+    id: 97,
+    name: 'Pan de Nueces',
+    price: 46.50,
+    originalPrice: 9.99,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'panaderia',
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 208.70,
+    description: 'Pan dulce con nueces y miel',
+    inStock: true,
+    rating: 4.6,
+    discount: 15
+  },
+  {
+    id: 98,
+    name: 'Scones Ingleses',
+    price: 9.49,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    price: 69.54,
+    category: 'panaderia',
+    brand: 'EnglishBakery',
+    description: 'Scones tradicionales ingleses con pasas',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 99,
+    name: 'Brioche Francés',
+    price: 67.50,
+    price: 118.25,
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: 'panaderia',
+    brand: 'FrenchBrioche',
+    description: 'Brioche mantecoso estilo francés',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 100,
+    name: 'Cookies de Chocolate',
+    price: 57.00,
+    image: 'https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=400',
+    image: "https://images.pexels.com/photos/209196/pexels-photo-209196.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: 'panaderia',
+    brand: 'ChocolateChip',
+    description: 'Cookies crujientes con chips de chocolate',
+    inStock: true,
+    rating: 4.7
+  },
 
-  return (
-    <>
-      {/* Top bar */}
-      <div className="bg-emerald-600 text-white py-2 px-4">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-sm">
-          <div className="flex items-center space-x-4 mb-1 sm:mb-0">
-            <div className="flex items-center space-x-1">
-              <MapPin size={16} />
-              <span>Av. Cristo Redentor 123, Santa Cruz de la Sierra</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Phone size={16} />
-              <a href="https://wa.me/59161518317" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-200 transition-colors">
-                +591 61518317
-              </a>
-            </div>
-          </div>
-          <div className="flex items-center space-x-1">
-            <Clock size={16} />
-            <span>Lun-Dom: 8:00 AM - 10:00 PM</span>
-          </div>
-        </div>
-      </div>
+  // PESCADOS - 20 productos únicos
+  {
+    id: 101,
+    name: 'Salmón Atlántico',
+    price: 28.99,
+    image: "https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'AtlanticFish',
+    description: 'Salmón atlántico fresco rico en omega-3',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    id: 102,
+    name: 'Atún Rojo Fresco',
+    price: 235.50,
+    originalPrice: 35.99,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'TunaSelect',
+    description: 'Atún rojo fresco de primera calidad',
+    inStock: true,
+    rating: 4.8,
+    discount: 16
+  },
+  {
+    id: 103,
+    name: 'Trucha Arcoíris',
+    price: 135.50,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'RainbowTrout',
+    description: 'Trucha arcoíris fresca de criadero',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 104,
+    name: 'Bacalao del Atlántico',
+    price: 160.50,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'CodFresh',
+    description: 'Bacalao fresco con carne blanca y firme',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 105,
+    name: 'Camarones Jumbo',
+    price: 207.00,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'ShrimpKing',
+    description: 'Camarones jumbo frescos del Pacífico',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 106,
+    name: 'Pulpo Mediterráneo',
+    price: 192.50,
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'OctopusFresh',
+    description: 'Pulpo mediterráneo fresco y tierno',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 107,
+    name: 'Langostinos Tigre',
+    price: 25.49,
+    originalPrice: 29.99,
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'TigerPrawns',
+    description: 'Langostinos tigre grandes y jugosos',
+    inStock: true,
+    rating: 4.7,
+    discount: 14
+  },
+  {
+    id: 108,
+    name: 'Merluza Austral',
+    price: 121.50,
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'HakeFresh',
+    description: 'Merluza austral con carne suave y delicada',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 109,
+    name: 'Calamar Fresco',
+    price: 142.50,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'SquidFresh',
+    description: 'Calamar fresco perfecto para frituras',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 110,
+    name: 'Dorada Real',
+    price: 171.50,
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'SeaBreamKing',
+    description: 'Dorada real mediterránea de alta calidad',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 111,
+    name: 'Mejillones Frescos',
+    price: 92.50,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'MusselFresh',
+    description: 'Mejillones frescos en concha',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 112,
+    name: 'Lubina Salvaje',
+    price: 185.50,
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'WildBass',
+    description: 'Lubina salvaje con sabor intenso del mar',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    id: 113,
+    name: 'Almejas Frescas',
+    price: 114.00,
+    originalPrice: 18.99,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'ClamFresh',
+    description: 'Almejas frescas perfectas para paellas',
+    inStock: true,
+    rating: 4.5,
+    discount: 16
+  },
+  {
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 114,
+    name: 'Lenguado Dover',
+    price: 214.00,
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'DoverSole',
+    description: 'Lenguado Dover premium con carne delicada',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 115,
+    name: 'Cangrejo Real',
+    price: 328.50,
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'KingCrab',
+    description: 'Cangrejo real con carne dulce y jugosa',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 116,
+    name: 'Sardinas Frescas',
+    price: 64.00,
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'SardineFresh',
+    description: 'Sardinas frescas ricas en omega-3',
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 117,
+    name: 'Rodaballo Salvaje',
+    price: 42.99,
+    originalPrice: 48.99,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'TurbotWild',
+    description: 'Rodaballo salvaje de carne firme y sabrosa',
+    inStock: true,
+    rating: 4.7,
+    discount: 12
+  },
+  {
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 118,
+    name: 'Ostras Frescas',
+    price: 36.99,
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'OysterFresh',
+    description: 'Ostras frescas del Atlántico',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    image: "https://images.pexels.com/photos/566345/pexels-photo-566345.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 119,
+    name: 'Anchoas del Cantábrico',
+    price: 14.99,
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'CantabrianAnchovy',
+    description: 'Anchoas del Cantábrico en salazón',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 120,
+    name: 'Rape Fresco',
+    price: 200.00,
+    image: 'https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'pescados',
+    brand: 'MonkfishFresh',
+    description: 'Rape fresco con textura firme y sabor suave',
+    inStock: true,
+    rating: 4.5
+  },
 
-      {/* Main header */}
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                S
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">SuperFresh</h1>
-                <p className="text-xs text-gray-600">Tu supermercado de confianza</p>
-              </div>
-            </div>
+  // GRANOS - 20 productos únicos
+  {
+    id: 121,
+    name: 'Quinoa Orgánica',
+    price: 64.00,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'OrganicGrains',
+    description: 'Quinoa orgánica rica en proteínas completas',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 122,
+    name: 'Arroz Basmati Premium',
+    price: 50.00,
+    originalPrice: 8.99,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'BasmatiKing',
+    description: 'Arroz basmati aromático de grano largo',
+    inStock: true,
+    rating: 4.7,
+    discount: 22
+  },
+  {
+    id: 123,
+    name: 'Lentejas Rojas',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'LentilFresh',
+    description: 'Lentejas rojas de cocción rápida',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 124,
+    name: 'Garbanzos Secos',
+    price: 28.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'ChickpeaSelect',
+    description: 'Garbanzos secos perfectos para hummus',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 125,
+    name: 'Avena Integral',
+    price: 39.00,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'OatMaster',
+    description: 'Avena integral rica en fibra soluble',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 126,
+    name: 'Frijoles Negros',
+    price: 4.99,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'BlackBeans Co',
+    description: 'Frijoles negros ricos en proteína vegetal',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 127,
+    name: 'Arroz Integral',
+    price: 42.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'BrownRice Co',
+    description: 'Arroz integral nutritivo y sabroso',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 128,
+    name: 'Cebada Perlada',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'BarleyFresh',
+    description: 'Cebada perlada ideal para sopas',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 129,
+    name: 'Trigo Sarraceno',
+    price: 53.50,
+    originalPrice: 8.99,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'BuckwheatSelect',
+    description: 'Trigo sarraceno sin gluten rico en minerales',
+    inStock: true,
+    rating: 4.6,
+    discount: 17
+  },
+  {
+    id: 130,
+    name: 'Mijo Dorado',
+    price: 46.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'MilletGold',
+    description: 'Mijo dorado nutritivo y versátil',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 131,
+    name: 'Amaranto Orgánico',
+    price: 71.50,
+    image: "https://images.pexels.com/photos/162689/cherry-pair-cherries-sweet-cherry-162689.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'AmaranthPure',
+    description: 'Amaranto orgánico rico en proteínas',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 132,
+    name: 'Farro Italiano',
+    price: 60.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'ItalianFarro',
+    description: 'Farro italiano con textura masticable',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 133,
+    name: 'Lentejas Verdes',
+    price: 35.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'GreenLentils',
+    description: 'Lentejas verdes que mantienen su forma',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 134,
+    name: 'Bulgur Fino',
+    price: 28.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'BulgurSelect',
+    description: 'Bulgur fino perfecto para tabbouleh',
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 135,
+    name: 'Semillas de Chía',
+    price: 85.50,
+    originalPrice: 14.99,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'ChiaSuper',
+    description: 'Semillas de chía ricas en omega-3',
+    inStock: true,
+    rating: 4.8,
+    discount: 20
+  },
+  {
+    id: 136,
+    name: 'Frijoles Pintos',
+    price: 32.00,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'PintoBeans',
+    description: 'Frijoles pintos cremosos y nutritivos',
+    inStock: true,
+    rating: 4.1
+  },
+  {
+    id: 137,
+    name: 'Arroz Salvaje',
+    price: 92.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'WildRice Co',
+    description: 'Arroz salvaje con sabor a nuez',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 138,
+    name: 'Soja Verde',
+    price: 42.50,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'GreenSoy',
+    description: 'Soja verde fresca rica en isoflavonas',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 139,
+    name: 'Kamut Orgánico',
+    price: 10.49,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'KamutPure',
+    description: 'Kamut orgánico con sabor mantecoso',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 140,
+    name: 'Teff Etíope',
+    price: 99.50,
+    originalPrice: 16.99,
+    image: 'https://images.pexels.com/photos/4198018/pexels-photo-4198018.jpeg?auto=compress&cs=tinysrgb&w=400',
+    category: 'granos',
+    brand: 'TeffEthiopian',
+    description: 'Teff etíope sin gluten rico en hierro',
+    inStock: true,
+    rating: 4.7,
+    discount: 18
+  },
 
-            {/* Search bar - Desktop */}
-            <div className="hidden md:flex flex-1 max-w-xl mx-8">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Buscar productos..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-                />
-                <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
-              </div>
-            </div>
-
-            {/* Navigation and Cart */}
-            <div className="flex items-center space-x-4">
-              {/* Cart */}
-              <button 
-                onClick={() => setIsCartOpen(true)}
-                className="relative bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center space-x-2"
-              >
-                <ShoppingCart size={20} />
-                <span className="hidden sm:inline">Carrito</span>
-                {cartItemsCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                    {cartItemsCount}
-                  </span>
-                )}
-              </button>
-
-              {/* Mobile menu button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2"
-              >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
-
-          {/* Search bar - Mobile */}
-          <div className="md:hidden mt-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Buscar productos..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all"
-              />
-              <Search className="absolute left-3 top-3.5 text-gray-400" size={20} />
-            </div>
-          </div>
-
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden mt-4 py-4 border-t border-gray-200">
-              <nav className="flex flex-col space-y-2">
-                <a href="#catalog" className="py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                  Catálogo
-                </a>
-                <a href="#promotions" className="py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                  Ofertas
-                </a>
-                <a href="#store-info" className="py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                  Tienda
-                </a>
-                <a href="#contact" className="py-2 px-4 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                  Contacto
-                </a>
-              </nav>
-            </div>
-          )}
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:block bg-gray-50 border-t border-gray-200">
-          <div className="max-w-7xl mx-auto px-4">
-            <nav className="flex space-x-8 py-3">
-              <a href="#catalog" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium">
-                Catálogo
-              </a>
-              <a href="#promotions" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium">
-                Ofertas
-              </a>
-              <a href="#store-info" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium">
-                Tienda
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-emerald-600 transition-colors font-medium">
-                Contacto
-              </a>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      {/* Cart Sidebar */}
-      {isCartOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden">
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsCartOpen(false)}></div>
-          <div className="absolute right-0 top-0 h-full w-96 bg-white shadow-xl">
-            <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between p-4 border-b">
-                <h2 className="text-lg font-semibold">Carrito de Compras</h2>
-                <button
-                  onClick={() => setIsCartOpen(false)}
-                  className="p-2 hover:bg-gray-100 rounded-full"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="flex-1 overflow-y-auto p-4">
-                {cartItems.length === 0 ? (
-                  <p className="text-center text-gray-500 mt-8">Tu carrito está vacío</p>
-                ) : (
-                  <div className="space-y-4">
-                    {cartItems.map((item) => (
-                      <div key={item.id} className="flex items-center space-x-3 bg-gray-50 p-3 rounded-lg">
-                        <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
-                        <div className="flex-1">
-                          <h3 className="font-medium text-sm">{item.name}</h3>
-                          <p className="text-emerald-600 font-semibold">${item.price}</p>
-                          <div className="flex items-center space-x-2 mt-2">
-                            <button
-                              onClick={() => updateCartItem(item.id, item.quantity - 1)}
-                              className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300"
-                            >
-                              -
-                            </button>
-                            <span className="font-medium">{item.quantity}</span>
-                            <button
-                              onClick={() => updateCartItem(item.id, item.quantity + 1)}
-                              className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center hover:bg-emerald-700"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              {cartItems.length > 0 && (
-                <div className="border-t p-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="font-semibold">Total:</span>
-                    <span className="text-xl font-bold text-emerald-600">${cartTotal.toFixed(2)}</span>
-                  </div>
-                  <button 
-                    onClick={handleCheckout}
-                    className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-colors font-medium"
-                  >
-                    Proceder al Pago
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Payment Modal */}
-      <PaymentModal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        cartItems={cartItems}
-        cartTotal={cartTotal}
-      />
-    </>
-  );
-};
-
-export default Header;
+  // ACEITES - 20 productos únicos
+  {
+    id: 141,
+    name: 'Aceite de Oliva Extra Virgen',
+    price: 114.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'OliveGold',
+    description: 'Aceite de oliva extra virgen prensado en frío',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    id: 142,
+    name: 'Aceite de Coco Orgánico',
+    price: 71.50,
+    originalPrice: 92.50,
+    image: "https://images.pexels.com/photos/357573/pexels-photo-357573.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'CoconutOil Pure',
+    description: 'Aceite de coco orgánico virgen',
+    inStock: true,
+    rating: 4.8,
+    discount: 19
+  },
+  {
+    id: 143,
+    name: 'Aceite de Girasol',
+    price: 35.50,
+    image: "https://images.pexels.com/photos/65256/pomegranate-open-cores-fruit-65256.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'SunflowerOil Co',
+    description: 'Aceite de girasol refinado para cocinar',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 144,
+    name: 'Aceite de Aguacate',
+    price: 107.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'AvocadoOil Premium',
+    description: 'Aceite de aguacate prensado en frío',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 145,
+    name: 'Aceite de Sésamo',
+    price: 64.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'SesameSelect',
+    description: 'Aceite de sésamo tostado aromático',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 146,
+    name: 'Aceite de Canola',
+    price: 39.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'CanolaFresh',
+    description: 'Aceite de canola bajo en grasas saturadas',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 147,
+    name: 'Aceite de Linaza',
+    price: 85.50,
+    originalPrice: 17.99,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'FlaxseedOil Omega',
+    description: 'Aceite de linaza rico en omega-3',
+    inStock: true,
+    rating: 4.7,
+    discount: 17
+  },
+  {
+    id: 148,
+    name: 'Aceite de Maíz',
+    price: 32.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'CornOil Co',
+    description: 'Aceite de maíz refinado para freír',
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 149,
+    name: 'Aceite de Nuez',
+    price: 121.50,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'WalnutOil Gourmet',
+    description: 'Aceite de nuez gourmet para ensaladas',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 150,
+    name: 'Aceite de Almendras',
+    price: 99.50,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'AlmondOil Pure',
+    description: 'Aceite de almendras dulces prensado en frío',
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 151,
+    name: 'Aceite de Macadamia',
+    price: 26.99,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'MacadamiaOil Premium',
+    description: 'Aceite de macadamia premium australiano',
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    id: 152,
+    name: 'Aceite de Pepita de Uva',
+    price: 78.50,
+    originalPrice: 14.99,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'GrapeseedOil Co',
+    description: 'Aceite de pepita de uva ligero y neutro',
+    inStock: true,
+    rating: 4.5,
+    discount: 20
+  },
+  {
+    id: 153,
+    name: 'Aceite de Argán',
+    price: 17.33,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'ArganOil Morocco',
+    description: 'Aceite de argán marroquí puro',
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 154,
+    name: 'Aceite de Cacahuete',
+    price: 50.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'PeanutOil Select',
+    description: 'Aceite de cacahuete refinado para freír',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 155,
+    name: 'Aceite de Colza',
+    price: 42.50,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'RapeseedOil Co',
+    description: 'Aceite de colza prensado en frío',
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 156,
+    name: 'Aceite de Cártamo',
+    price: 13.85,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'SafflowerOil Pure',
+    description: 'Aceite de cártamo alto en ácido oleico',
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 157,
+    name: 'Aceite de Palma Roja',
+    price: 60.50,
+    originalPrice: 16.99,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'RedPalmOil Organic',
+    description: 'Aceite de palma roja orgánico sin refinar',
+    inStock: true,
+    rating: 4.6,
+    discount: 18
+  },
+  {
+    id: 158,
+    name: 'Aceite de Semilla de Calabaza',
+    price: 157.00,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'PumpkinSeedOil Austrian',
+    description: 'Aceite de semilla de calabaza austriaco',
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 159,
+    name: 'Aceite de Mostaza',
+    price: 20.81,
+    image: "https://images.pexels.com/photos/1002543/pexels-photo-1002543.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'MustardOil Indian',
+    description: 'Aceite de mostaza tradicional indio',
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 160,
+    name: 'Aceite de Ricino',
+    price: 24.29,
+    price: 19.42,
+    image: 'https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=400',
+    category: 'aceites',
+    brand: 'CastorOil Pure',
+    description: 'Aceite de ricino puro prensado en frío',
+    inStock: true,
+    rating: 4.2
+  }
+];

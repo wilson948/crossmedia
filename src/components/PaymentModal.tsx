@@ -1,246 +1,621 @@
-import React, { useState } from 'react';
-import { X, Clock, CheckCircle, Copy, Download } from 'lucide-react';
-import { CartItem } from '../types';
+import { Product, Category } from '../types';
 
-interface PaymentModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  cartItems: CartItem[];
-  cartTotal: number;
-}
+export const categories: Category[] = [
+  {
+    id: "fruits",
+    name: "Frutas",
+    icon: "🍎",
+    image: "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "vegetables",
+    name: "Verduras",
+    icon: "🥕",
+    image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "meat",
+    name: "Carnes",
+    icon: "🥩",
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "seafood",
+    name: "Pescados",
+    icon: "🐟",
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "dairy",
+    name: "Lácteos",
+    icon: "🥛",
+    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "bakery",
+    name: "Panadería",
+    icon: "🍞",
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "organic",
+    name: "Orgánicos",
+    icon: "🌱",
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600"
+  },
+  {
+    id: "beverages",
+    name: "Bebidas",
+    icon: "🥤",
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600"
+  }
+];
 
-const PaymentModal: React.FC<PaymentModalProps> = ({ isOpen, onClose, cartItems, cartTotal }) => {
-  const [paymentStep, setPaymentStep] = useState<'method' | 'qr' | 'confirmation'>('method');
-  const [orderNumber, setOrderNumber] = useState('');
+export const products: Product[] = [
+  // Frutas y Verduras
+  {
+    id: 1,
+    name: "Manzanas Rojas Premium",
+    price: 27.77,
+    originalPrice: 34.73,
+    image: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "FreshFarm",
+    description: "Manzanas rojas crujientes y dulces, perfectas para snacks saludables",
+    inStock: true,
+    rating: 4.5,
+    discount: 20
+  },
+  {
+    id: 2,
+    name: "Plátanos Orgánicos",
+    price: 17.33,
+    image: "https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "EcoBio",
+    description: "Plátanos orgánicos maduros, ricos en potasio y fibra",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 3,
+    name: "Zanahorias Baby",
+    price: 13.85,
+    image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "GreenFields",
+    description: "Zanahorias baby tiernas y dulces, ideales para ensaladas",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 4,
+    name: "Espinacas Frescas",
+    price: 20.82,
+    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "LeafyGreens",
+    description: "Espinacas frescas ricas en hierro y vitaminas",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 5,
+    name: "Tomates Cherry",
+    price: 24.29,
+    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "SunnyVeggies",
+    description: "Tomates cherry dulces y jugosos, perfectos para ensaladas",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 6,
+    name: "Aguacates Hass",
+    price: 34.73,
+    image: "https://images.pexels.com/photos/557659/pexels-photo-557659.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "TropicalFresh",
+    description: "Aguacates Hass cremosos, ricos en grasas saludables",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 7,
+    name: "Brócoli Fresco",
+    price: 19.42,
+    image: "https://images.pexels.com/photos/47347/broccoli-vegetable-food-healthy-47347.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "GreenCrown",
+    description: "Brócoli fresco rico en vitaminas y antioxidantes",
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 8,
+    name: "Naranjas Valencia",
+    price: 22.90,
+    image: "https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "CitrusFresh",
+    description: "Naranjas Valencia jugosas, perfectas para zumo natural",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 9,
+    name: "Lechuga Romana",
+    price: 13.15,
+    image: "https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "CrispyGreens",
+    description: "Lechuga romana crujiente, base perfecta para ensaladas César",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 10,
+    name: "Fresas Orgánicas",
+    price: 41.69,
+    originalPrice: 55.62,
+    image: "https://images.pexels.com/photos/89778/strawberries-frisch-ripe-sweet-89778.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "BerryBest",
+    description: "Fresas orgánicas dulces y aromáticas, cultivadas sin pesticidas",
+    inStock: true,
+    rating: 4.9,
+    discount: 25
+  },
+  {
+    id: 11,
+    name: "Cebollas Rojas",
+    price: 13.85,
+    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 62.58,
+    brand: "FreshVeggies",
+    description: "Cebollas rojas frescas, perfectas para ensaladas y guisos",
+    inStock: true,
+    rating: 4.1
+  },
+  {
+    id: 12,
+    name: "Limones Frescos",
+    price: 17.33,
+    image: "https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "CitrusFresh",
+    description: "Limones frescos jugosos, ricos en vitamina C",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 13,
+    name: "Apio Fresco",
+    price: 15.64,
+    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "CrispyGreens",
+    description: "Apio fresco crujiente, ideal para jugos y ensaladas",
+    inStock: true,
+    rating: 4.2
+  },
+  {
+    id: 14,
+    name: "Peras Anjou",
+    price: 27.77,
+    image: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "fruits",
+    brand: "OrchardFresh",
+    description: "Peras Anjou dulces y jugosas, perfectas para postres",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 15,
+    name: "Pepinos Orgánicos",
+    price: 20.82,
+    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "vegetables",
+    brand: "EcoBio",
+    description: "Pepinos orgánicos frescos, ideales para ensaladas",
+    inStock: true,
+    rating: 4.3
+  },
 
-  if (!isOpen) return null;
+  // Carnes y Pescados
+  {
+    id: 16,
+    name: "Pechuga de Pollo Sin Piel",
+    price: 62.58,
+    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "FarmFresh",
+    description: "Pechuga de pollo fresca sin piel, alta en proteínas",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 17,
+    name: "Carne de Res Premium",
+    price: 111.29,
+    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "PrimeCuts",
+    description: "Carne de res premium, perfecta para asados y parrillas",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 18,
+    name: "Salmón Atlántico",
+    price: 173.95,
+    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "OceanFresh",
+    description: "Salmón atlántico fresco, rico en omega-3",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 19,
+    name: "Camarones Jumbo",
+    price: 132.17,
+    image: "https://images.pexels.com/photos/725990/pexels-photo-725990.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "SeaDelights",
+    description: "Camarones jumbo frescos, ideales para platos gourmet",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 20,
+    name: "Chuletas de Cerdo",
+    price: 90.42,
+    image: "https://images.pexels.com/photos/3688/food-dinner-lunch-unhealthy.jpg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "PorkPrime",
+    description: "Chuletas de cerdo tiernas y jugosas",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    id: 21,
+    name: "Atún Fresco",
+    price: 160.02,
+    image: "https://images.pexels.com/photos/725992/pexels-photo-725992.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "TunaSelect",
+    description: "Atún fresco de calidad sashimi",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 22,
+    name: "Pavo Molido",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/616401/pexels-photo-616401.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "LeanMeat",
+    description: "Pavo molido magro, opción saludable alta en proteínas",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    id: 23,
+    name: "Bacalao Fresco",
+    price: 139.16,
+    image: "https://images.pexels.com/photos/725993/pexels-photo-725993.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "NordicFish",
+    description: "Bacalao fresco del Atlántico Norte",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 24,
+    name: "Costillas de Res",
+    price: 118.25,
+    image: "https://images.pexels.com/photos/1539685/pexels-photo-1539685.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "meat",
+    brand: "BBQMaster",
+    description: "Costillas de res perfectas para barbacoa",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 25,
+    name: "Cangrejo Real",
+    price: 320.09,
+    originalPrice: 389.69,
+    image: "https://images.pexels.com/photos/725994/pexels-photo-725994.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "seafood",
+    brand: "RoyalSea",
+    description: "Cangrejo real de Alaska, delicadeza marina premium",
+    inStock: true,
+    rating: 4.9,
+    discount: 18
+  },
 
-  const generateOrderNumber = () => {
-    const number = 'SF' + Date.now().toString().slice(-6);
-    setOrderNumber(number);
-    return number;
-  };
+  // Lácteos
+  {
+    id: 26,
+    name: "Leche Entera Orgánica",
+    price: 31.25,
+    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "PureDairy",
+    description: "Leche entera orgánica de vacas alimentadas con pasto",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 27,
+    name: "Queso Cheddar Añejo",
+    price: 55.62,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "CheeseWorks",
+    description: "Queso cheddar añejo con sabor intenso y textura cremosa",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 28,
+    name: "Yogur Griego Natural",
+    price: 41.69,
+    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "GreekGold",
+    description: "Yogur griego natural cremoso, alto en proteínas",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 29,
+    name: "Mantequilla Artesanal",
+    price: 45.18,
+    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "CreamyCraft",
+    description: "Mantequilla artesanal hecha con crema fresca",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 30,
+    name: "Queso Mozzarella Fresca",
+    price: 62.58,
+    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "dairy",
+    brand: "ItalianStyle",
+    description: "Mozzarella fresca italiana, perfecta para caprese",
+    inStock: true,
+    rating: 4.6
+  },
 
-  const handleQRPayment = () => {
-    generateOrderNumber();
-    setPaymentStep('qr');
-  };
+  // Panadería
+  {
+    price: 27.77,
+    name: "Pan Integral Artesanal",
+    price: 27.77,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "ArtisanBread",
+    description: "Pan integral artesanal horneado diariamente",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    id: 32,
+    name: "Croissants Franceses",
+    price: 20.82,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "FrenchBake",
+    description: "Croissants franceses mantecosos y hojaldrados",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    id: 33,
+    name: "Muffins de Arándanos",
+    price: 31.25,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "BerryBake",
+    description: "Muffins esponjosos con arándanos frescos",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    id: 34,
+    name: "Baguette Tradicional",
+    price: 17.33,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "ClassicBread",
+    description: "Baguette francesa tradicional con corteza crujiente",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    id: 35,
+    name: "Donuts Glaseados",
+    price: 41.69,
+    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "bakery",
+    brand: "SweetTreats",
+    description: "Donuts glaseados frescos, perfectos para el desayuno",
+    inStock: true,
+    rating: 4.4
+  },
 
-  const handlePaymentConfirmation = () => {
-    setPaymentStep('confirmation');
-  };
+  // Productos Orgánicos
+  {
+    price: 29.86,
+    name: "Quinoa Orgánica",
+    price: 62.58,
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "SuperGrain",
+    description: "Quinoa orgánica boliviana, superalimento completo",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    price: 90.42,
+    name: "Aceite de Oliva Extra Virgen",
+    price: 90.42,
+    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "MediterraneanGold",
+    description: "Aceite de oliva extra virgen prensado en frío",
+    inStock: true,
+    rating: 4.9
+  },
+  {
+    price: 26.38,
+    name: "Miel de Abeja Pura",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "BeeNatural",
+    description: "Miel de abeja pura sin procesar",
+    inStock: true,
+    rating: 4.7
+  },
+  {
+    price: 62.58,
+    name: "Arroz Integral Orgánico",
+    price: 41.69,
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "GrainPure",
+    description: "Arroz integral orgánico de grano largo",
+    inStock: true,
+    rating: 4.5
+  },
+  {
+    price: 20.82,
+    name: "Semillas de Chía",
+    price: 55.62,
+    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "organic",
+    brand: "SuperSeeds",
+    description: "Semillas de chía orgánicas ricas en omega-3",
+    inStock: true,
+    rating: 4.6
+  },
 
-  const copyOrderNumber = () => {
-    navigator.clipboard.writeText(orderNumber);
-  };
-
-  const downloadQR = () => {
-    const link = document.createElement('a');
-    link.href = '/Imagen de WhatsApp 2025-10-01 a las 21.23.53_63d9119c.jpg';
-    link.download = 'qr-pago-superfresh.jpg';
-    link.click();
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
-      <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
-      <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-xl">
-        <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="text-lg font-semibold">
-              {paymentStep === 'method' && 'Método de Pago'}
-              {paymentStep === 'qr' && 'Pagar con QR'}
-              {paymentStep === 'confirmation' && 'Pago Confirmado'}
-            </h2>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-full"
-            >
-              <X size={20} />
-            </button>
-          </div>
-
-          {/* Content */}
-          <div className="flex-1 overflow-y-auto p-4">
-            {paymentStep === 'method' && (
-              <div className="space-y-6">
-                {/* Order Summary */}
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold mb-3">Resumen del Pedido</h3>
-                  <div className="space-y-2 mb-3">
-                    {cartItems.map((item) => (
-                      <div key={item.id} className="flex justify-between text-sm">
-                        <span>{item.name} x{item.quantity}</span>
-                        <span>${(item.price * item.quantity).toFixed(2)}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t pt-2 flex justify-between font-semibold">
-                    <span>Total:</span>
-                    <span className="text-emerald-600">${cartTotal.toFixed(2)}</span>
-                  </div>
-                </div>
-
-                {/* Payment Methods */}
-                <div className="space-y-3">
-                  <h3 className="font-semibold">Selecciona tu método de pago:</h3>
-                  
-                  <button
-                    onClick={handleQRPayment}
-                    className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors flex items-center space-x-3"
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-teal-500 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-sm">QR</span>
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold">Pago con QR</div>
-                      <div className="text-sm text-gray-600">Yape, Plin, BIM y más</div>
-                    </div>
-                  </button>
-
-                  <button className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors flex items-center space-x-3 opacity-50 cursor-not-allowed">
-                    <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-xs">CARD</span>
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold">Tarjeta de Crédito/Débito</div>
-                      <div className="text-sm text-gray-600">Próximamente disponible</div>
-                    </div>
-                  </button>
-
-                  <button className="w-full p-4 border-2 border-gray-200 rounded-lg hover:border-emerald-500 hover:bg-emerald-50 transition-colors flex items-center space-x-3 opacity-50 cursor-not-allowed">
-                    <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-xs">CASH</span>
-                    </div>
-                    <div className="text-left">
-                      <div className="font-semibold">Pago Contra Entrega</div>
-                      <div className="text-sm text-gray-600">Próximamente disponible</div>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {paymentStep === 'qr' && (
-              <div className="space-y-6 text-center">
-                <div className="bg-gradient-to-r from-purple-500 to-teal-500 p-4 rounded-lg text-white">
-                  <h3 className="font-bold text-lg mb-2">Escanea el QR para pagar</h3>
-                  <p className="text-sm opacity-90">Pedido #{orderNumber}</p>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <img 
-                    src="/Imagen de WhatsApp 2025-10-01 a las 21.23.53_63d9119c.jpg" 
-                    alt="QR de pago Yape" 
-                    className="w-64 h-64 mx-auto rounded-lg shadow-md"
-                  />
-                  
-                  <div className="mt-4 space-y-2">
-                    <p className="text-sm text-gray-600">Escanea este QR para pagar a:</p>
-                    <p className="font-semibold text-gray-900">Wilson Diaz De Oropeza Aparicio</p>
-                    <p className="text-sm text-gray-500">Vencimiento: 22 oct 2025</p>
-                  </div>
-
-                  <div className="flex space-x-2 mt-4">
-                    <button
-                      onClick={copyOrderNumber}
-                      className="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors flex items-center justify-center space-x-2"
-                    >
-                      <Copy size={16} />
-                      <span>Copiar Pedido</span>
-                    </button>
-                    <button
-                      onClick={downloadQR}
-                      className="flex-1 bg-emerald-600 text-white py-2 px-4 rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center space-x-2"
-                    >
-                      <Download size={16} />
-                      <span>Descargar QR</span>
-                    </button>
-                  </div>
-                </div>
-
-                <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
-                  <div className="flex items-center space-x-2 text-yellow-800">
-                    <Clock size={16} />
-                    <span className="font-semibold">Instrucciones:</span>
-                  </div>
-                  <ol className="text-sm text-yellow-700 mt-2 space-y-1 text-left">
-                    <li>1. Abre tu app de pagos (Yape, Plin, BIM)</li>
-                    <li>2. Escanea el código QR</li>
-                    <li>3. Ingresa el monto: <strong>${cartTotal.toFixed(2)}</strong></li>
-                    <li>4. Confirma el pago</li>
-                    <li>5. Envía el comprobante por WhatsApp</li>
-                  </ol>
-                </div>
-
-                <div className="space-y-3">
-                  <button
-                    onClick={handlePaymentConfirmation}
-                    className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-colors font-semibold"
-                  >
-                    Ya Realicé el Pago
-                  </button>
-                  
-                  <a
-                    href={`https://wa.me/59161518317?text=Hola, acabo de realizar el pago del pedido ${orderNumber} por $${cartTotal.toFixed(2)}. Adjunto el comprobante.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold flex items-center justify-center space-x-2"
-                  >
-                    <span>📱</span>
-                    <span>Enviar Comprobante por WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            )}
-
-            {paymentStep === 'confirmation' && (
-              <div className="space-y-6 text-center">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                  <CheckCircle className="text-green-600" size={40} />
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">¡Pago Confirmado!</h3>
-                  <p className="text-gray-600">Tu pedido #{orderNumber} ha sido procesado exitosamente</p>
-                </div>
-
-                <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
-                  <h4 className="font-semibold text-green-800 mb-2">¿Qué sigue?</h4>
-                  <ul className="text-sm text-green-700 space-y-1 text-left">
-                    <li>• Recibirás una confirmación por WhatsApp</li>
-                    <li>• Prepararemos tu pedido en 30-45 minutos</li>
-                    <li>• Te notificaremos cuando esté listo para entrega</li>
-                    <li>• Tiempo estimado de entrega: 2-4 horas</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-3">
-                  <button
-                    onClick={onClose}
-                    className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition-colors font-semibold"
-                  >
-                    Continuar Comprando
-                  </button>
-                  
-                  <a
-                    href={`https://wa.me/59161518317?text=Hola, quiero consultar sobre el estado de mi pedido ${orderNumber}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full border-2 border-emerald-600 text-emerald-600 py-3 rounded-lg hover:bg-emerald-50 transition-colors font-semibold flex items-center justify-center space-x-2"
-                  >
-                    <span>📱</span>
-                    <span>Consultar Estado del Pedido</span>
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default PaymentModal;
+  // Bebidas
+  {
+    price: 62.58,
+    name: "Agua Mineral Natural",
+    price: 13.85,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "PureSpring",
+    description: "Agua mineral natural de manantial",
+    inStock: true,
+    rating: 4.3
+  },
+  {
+    price: 90.42,
+    name: "Jugo de Naranja Natural",
+    price: 34.73,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "FreshSqueeze",
+    description: "Jugo de naranja 100% natural sin azúcar añadido",
+    inStock: true,
+    rating: 4.6
+  },
+  {
+    price: 69.54,
+    name: "Café Orgánico en Grano",
+    price: 90.42,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "MountainRoast",
+    description: "Café orgánico en grano tostado medio",
+    inStock: true,
+    rating: 4.8
+  },
+  {
+    price: 41.69,
+    name: "Kombucha de Jengibre",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "FermentedLife",
+    description: "Kombucha probiótica con jengibre fresco",
+    inStock: true,
+    rating: 4.4
+  },
+  {
+    price: 55.62,
+    name: "Smoothie Verde",
+    price: 48.67,
+    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    category: "beverages",
+    brand: "GreenBlend",
+    description: "Smoothie verde con espinaca, manzana y jengibre",
+    inStock: true,
+    rating: 4.5
+  }
+];
+    price: 27.77,
+    price: 83.46,
+    price: 66.05,
+    price: 48.67,
+    price: 59.09,
+    price: 13.85,
+    price: 34.73,
+    price: 90.42,
+    price: 38.21,
+    price: 48.67,
+    price: 27.77,
+    price: 132.17,
+    price: 55.62,
+    price: 31.25,
+    price: 62.58,
+    price: 34.73,
+    price: 55.62,
+    price: 41.69,
+    price: 45.18,
+    price: 27.77,
+    price: 20.82,
+    price: 31.25,
+    price: 24.29,
+    price: 20.82,
+    price: 62.58,
+    price: 48.67,
+    price: 27.77,
+    price: 31.25,
+    price: 62.58,
+    price: 41.69,
+    price: 38.21,
+    price: 20.82,
+    price: 34.73,
+    price: 55.62,
+    price: 24.29,
+    price: 55.62,
+    price: 69.54,
+    price: 34.73,
+    price: 41.69,
+    price: 90.42,
+    price: 45.18,
+    price: 62.58,
+    price: 208.70,
+    price: 173.95,
+    price: 111.29,
+    price: 132.17,
+    price: 90.42,
+    price: 62.58,
+    price: 104.38,
+    price: 173.95,
+    price: 48.67,
+    price: 208.70,
+    price: 69.54,
+    price: 118.25,
