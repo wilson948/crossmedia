@@ -404,12 +404,14 @@ export const products: Product[] = [
     description: "Pan integral artesanal horneado diariamente",
     inStock: true,
     rating: 4.6
-    <div className={`${viewMode === 'list' ? 'w-24 h-24 flex-shrink-0' : 'h-48'} relative overflow-hidden ${viewMode === 'grid' ? 'rounded-t-2xl' : 'rounded-lg'}`}>
-  <img
-    src={product.image}
-    alt={product.name}
-    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-  />
+    img {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+    
   },
   {
     id: 32,
