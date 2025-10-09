@@ -61,7 +61,7 @@ export const products: Product[] = [
     image: "https://images.pexels.com/photos/34192360/pexels-photo-34192360.jpeg",
     category: "fruits",
     brand: "FreshFarm",
-    description: "Manzanas rojas crujientes y dulces, perfectas para snacks saludables"
+    description: "Manzanas rojas crujientes y dulces, perfectas para snacks saludables",
     inStock: true,
     rating: 4.5,
     discount: 20
