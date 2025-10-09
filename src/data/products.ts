@@ -248,7 +248,7 @@ export const products: Product[] = [
   {
     id: 18,
     name: "Salmón Atlántico",
-    price: 173.95,
+    price: 88.95,
     image: "https://metroio.vtexassets.com/arquivos/ids/451217/Filete-de-Salm-n-Atl-ntico-Aqua-500g-1-312828457.jpg?v=638285098405930000",
     category: "seafood",
     brand: "OceanFresh",
@@ -260,7 +260,7 @@ export const products: Product[] = [
     id: 19,
     name: "Camarones Jumbo",
     price: 132.17,
-    image: "https://images.pexels.com/photos/725990/pexels-photo-725990.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00750301972146L.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
     category: "seafood",
     brand: "SeaDelights",
     description: "Camarones jumbo frescos, ideales para platos gourmet",
