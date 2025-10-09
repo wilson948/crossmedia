@@ -215,7 +215,7 @@ export const products: Product[] = [
     id: 15,
     name: "Pepinos Orgánicos",
     price: 20.82,
-    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+   image:"https://tse2.mm.bing.net/th/id/OIP.6tBiJ11LrErkQanwid_QzQHaE7?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "vegetables",
     brand: "EcoBio",
     description: "Pepinos orgánicos frescos, ideales para ensaladas",
