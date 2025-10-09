@@ -66,6 +66,7 @@ export const products: Product[] = [
     rating: 4.5,
     discount: 20
   },
+  
   {
     id: 2,
     name: "Plátanos Orgánicos",
@@ -77,6 +78,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.3
   },
+  
   {
     id: 3,
     name: "Zanahorias Baby",
@@ -88,6 +90,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.7
   },
+  
   {
     id: 4,
     name: "Espinacas Frescas",
@@ -99,11 +102,12 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.4
   },
+  
   {
     id: 5,
     name: "Tomates Cherry",
     price: 24.29,
-    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.mm.bing.net/th/id/OIP.kxLJelopYuQZdFtsSYn_SQHaFy?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "vegetables",
     brand: "SunnyVeggies",
     description: "Tomates cherry dulces y jugosos, perfectos para ensaladas",
