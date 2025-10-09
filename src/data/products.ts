@@ -193,7 +193,7 @@ export const products: Product[] = [
     id: 13,
     name: "Apio Fresco",
     price: 15.64,
-    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://www.istockphoto.com/photo/fresh-celery-isolated-on-white-background-gm492464736-76316825?utm_source=pexels&utm_medium=affiliate&utm_campaign=sponsored_photo&utm_content=srp_inline_media&utm_term=Apio",
     category: "vegetables",
     brand: "CrispyGreens",
     description: "Apio fresco crujiente, ideal para jugos y ensaladas",
