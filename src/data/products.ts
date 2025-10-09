@@ -229,7 +229,8 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 15,
     name: "Pepinos Orgánicos",
     price: 20.82,
-    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://img.freepik.com/fotos-premium/cultivo-pepinos-organicos_641010-10848.jpg
+      ",
     category: "vegetables",
     brand: "EcoBio",
     description: "Pepinos orgánicos frescos, ideales para ensaladas",
