@@ -217,7 +217,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 14,
     name: "Peras Anjou",
     price: 27.77,
-    image: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse2.mm.bing.net/th/id/OIP.wqlj5nAn9Qto82k017BqwAHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "fruits",
     brand: "OrchardFresh",
     description: "Peras Anjou dulces y jugosas, perfectas para postres",
