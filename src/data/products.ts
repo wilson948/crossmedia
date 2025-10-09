@@ -125,7 +125,7 @@ export const products: Product[] = [
     id: 7,
     name: "Brócoli Fresco",
     price: 19.42,
-    image: "https://images.pexels.com/photos/47347/broccoli-vegetable-food-healthy-47347.jpeg?auto=compress&cs=tinysrgb&w=600e",
+    image: "",
     category: "vegetables",
     brand: "GreenCrown",
     description: "Brócoli fresco rico en vitaminas y antioxidantes",
