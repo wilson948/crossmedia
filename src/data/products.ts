@@ -155,7 +155,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 9,
     name: "Lechuga Romana",
     price: 13.15,
-    image: "https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/OIP.uPsBXJm0NSLrXRUT0TalAgHaFv?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "vegetables",
     brand: "CrispyGreens",
     description: "Lechuga romana crujiente, base perfecta para ensaladas César",
