@@ -181,7 +181,7 @@ export const products: Product[] = [
   {
     id: 12,
     name: "Limones Frescos",
-    price: 17.33,
+    price: 2.33,
     image: "https://images.pexels.com/photos/6249228/pexels-photo-6249228.jpeg",
     category: "fruits",
     brand: "CitrusFresh",
