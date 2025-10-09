@@ -389,7 +389,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 28,
     name: "Yogur Griego Natural",
     price: 41.69,
-    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse3.mm.bing.net/th/id/OIP.8aROfS6E1FG0EX55OoCeBQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "dairy",
     brand: "GreekGold",
     description: "Yogur griego natural cremoso, alto en proteínas",
