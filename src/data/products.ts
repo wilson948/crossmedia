@@ -315,7 +315,7 @@ export const products: Product[] = [
     id: 24,
     name: "Costillas de Res",
     price: 118.25,
-    image: "https://images.pexels.com/photos/1539685/pexels-photo-1539685.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/R.69197a5a99a985e29b1fe918661f6877?rik=Bo2qVPLa8Knl3Q&pid=ImgRaw&r=0",
     category: "meat",
     brand: "BBQMaster",
     description: "Costillas de res perfectas para barbacoa",
