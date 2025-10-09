@@ -153,7 +153,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 viewMode === 'list' ? 'flex items-center p-4' : ''
               }`}
             >
-              <div className={`${viewMode === 'list' ? 'w-32 h-32 flex-shrink-0' : 'aspect-square'} relative overflow-hidden ${viewMode === 'grid' ? 'rounded-t-2xl' : 'rounded-lg'}`}>
+              <div className={`${viewMode === 'list' ? 'w-24 h-24 flex-shrink-0' : 'h-48'} relative overflow-hidden ${viewMode === 'grid' ? 'rounded-t-2xl' : 'rounded-lg'}`}>
                 <img
                   src={product.image}
                   alt={product.name}
