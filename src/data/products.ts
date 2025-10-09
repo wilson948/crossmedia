@@ -23,7 +23,7 @@ export const categories: Category[] = [
     id: "seafood",
     name: "Pescados",
     icon: "🐟",
-    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://www.periodistadigital.com/wp-content/uploads/2019/05/pescadosv.jpg"
   },
   {
     id: "dairy",
