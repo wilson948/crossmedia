@@ -29,7 +29,7 @@ export const categories: Category[] = [
     id: "dairy",
     name: "Lácteos",
     icon: "🥛",
-    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://tse4.mm.bing.net/th/id/OIP.QswfzuhlLy36op3yYzWGoAHaDv?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: "bakery",
