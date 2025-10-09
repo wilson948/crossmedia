@@ -409,7 +409,7 @@ export const products: Product[] = [
     id: 32,
     name: "Croissants Franceses",
     price: 20.82,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/OIP.g1RQBKSF2t_VVIZb35e0ZgHaEY?w=317&h=188&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3,
     category: "bakery",
     brand: "FrenchBake",
     description: "Croissants franceses mantecosos y hojaldrados",
