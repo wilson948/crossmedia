@@ -404,11 +404,6 @@ export const products: Product[] = [
     description: "Pan integral artesanal horneado diariamente",
     inStock: true,
     rating: 4.6
-
-  width: 150px;
-  height: auto;
-  object-fit: contain;
-  border-radius: 12px;
   },
   {
     id: 32,
