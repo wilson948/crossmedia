@@ -466,7 +466,7 @@ export const products: Product[] = [
     id: 37,
     name: "Aceite de Oliva Extra Virgen",
     price: 90.42,
-    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.mm.bing.net/th/id/OIP.ly1RXILlGXwWCeSHZIsWMQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3,
     category: "organic",
     brand: "MediterraneanGold",
     description: "Aceite de oliva extra virgen prensado en frío",
