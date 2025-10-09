@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, X, Plus, Minus } from 'lucide-react';
+import { ShoppingCart, X, Plus, Minus, QrCode } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface HeaderProps {
@@ -10,21 +10,12 @@ interface HeaderProps {
 
 export default function Header({ cartItems, cartItemsCount, updateCartItem }: HeaderProps) {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const handleCheckout = () => {
-    const orderDetails = cartItems
-      .map(item => `${item.quantity}x ${item.name} - Bs ${item.price.toFixed(2)}`)
-      .join('%0A');
-
-    const totalMessage = `Total: Bs ${cartTotal.toFixed(2)}`;
-    const message = `Hola! Me gustaría hacer el siguiente pedido:%0A%0A${orderDetails}%0A%0A${totalMessage}`;
-
-    const whatsappNumber = '525512345678';
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
-
-    window.open(whatsappUrl, '_blank');
+    setIsQrModalOpen(true);
   };
 
   return (
@@ -121,12 +112,79 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem }: He
                   </div>
                   <button
                     onClick={handleCheckout}
-                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center justify-center space-x-2"
                   >
-                    Hacer Pedido por WhatsApp
+                    <QrCode className="w-5 h-5" />
+                    <span>Pagar con QR</span>
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isQrModalOpen && (
+        <div className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black bg-opacity-60" onClick={() => setIsQrModalOpen(false)} />
+
+          <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 z-10">
+            <button
+              onClick={() => setIsQrModalOpen(false)}
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <QrCode className="w-6 h-6 text-green-600" />
+                </div>
+              </div>
+
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Escanea el QR para Pagar
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Realiza tu pago escaneando el código QR
+              </p>
+
+              <div className="bg-white rounded-xl p-4 mb-6 border-2 border-gray-200">
+                <img
+                  src="/Imagen de WhatsApp 2025-10-01 a las 21.23.53_8e296a48.jpg"
+                  alt="Código QR de Pago"
+                  className="w-full h-auto rounded-lg"
+                />
+              </div>
+
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-700 font-medium">Total a Pagar:</span>
+                  <span className="text-2xl font-bold text-green-600">Bs {cartTotal.toFixed(2)}</span>
+                </div>
+                <div className="text-sm text-gray-600 space-y-1 text-left">
+                  {cartItems.map((item) => (
+                    <div key={item.id} className="flex justify-between">
+                      <span>{item.quantity}x {item.name}</span>
+                      <span>Bs {(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-sm text-gray-500 mb-4">
+                Después de realizar el pago, contáctanos por WhatsApp para confirmar tu pedido
+              </div>
+
+              <a
+                href="https://wa.me/59161518317"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+              >
+                Confirmar por WhatsApp
+              </a>
             </div>
           </div>
         </div>
