@@ -453,7 +453,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 36,
     name: "Quinoa Orgánica",
     price: 62.58,
-    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/R.d2605ceed7e311ac810a628b733e11c6?rik=ftT%2b6nem2xWnLg&pid=ImgRaw&r=0",
     category: "organic",
     brand: "SuperGrain",
     description: "Quinoa orgánica boliviana, superalimento completo",
