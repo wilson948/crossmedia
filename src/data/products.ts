@@ -327,7 +327,7 @@ export const products: Product[] = [
     name: "Cangrejo Real",
     price: 320.09,
     originalPrice: 389.69,
-    image: "https://a1.soysuper.com/236c1383ec5d2f0af86f1d015938e6b9.340.340.0.min.wmark.ca9d7048.jpg",
+    image: "https://tse3.mm.bing.net/th/id/OIP.UhzQD_L-b3bYszmQd6fgoAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "seafood",
     brand: "RoyalSea",
     description: "Cangrejo real de Alaska, delicadeza marina premium",
