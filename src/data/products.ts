@@ -442,7 +442,7 @@ export const products: Product[] = [
     id: 35,
     name: "Donuts Glaseados",
     price: 41.69,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse2.mm.bing.net/th/id/OIP.Adz16ywrOaGmg6W2O4lVZQHaE7?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "bakery",
     brand: "SweetTreats",
     description: "Donuts glaseados frescos, perfectos para el desayuno",
