@@ -162,12 +162,13 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.3
   },
+  
   {
     id: 10,
     name: "Fresas Orgánicas",
     price: 41.69,
     originalPrice: 55.62,
-    image: "https://images.pexels.com/photos/89778/strawberries-frisch-ripe-sweet-89778.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://img.freepik.com/fotos-premium/fresas-organicas-frescas_863013-115754.jpg",
     category: "fruits",
     brand: "BerryBest",
     description: "Fresas orgánicas dulces y aromáticas, cultivadas sin pesticidas",
