@@ -189,11 +189,11 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     <div className="flex items-center justify-between">
                       <div>
                         <span className="text-lg font-bold text-emerald-600">
-                          ${product.price.toFixed(2)} MXN
+                          Bs {product.price.toFixed(2)}
                         </span>
                         {product.originalPrice && (
                           <span className="text-sm text-gray-500 line-through ml-2">
-                            ${product.originalPrice.toFixed(2)} MXN
+                            Bs {product.originalPrice.toFixed(2)}
                           </span>
                         )}
                       </div>
