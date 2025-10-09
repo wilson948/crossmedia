@@ -81,7 +81,7 @@ export const products: Product[] = [
     id: 3,
     name: "Zanahorias Baby",
     price: 13.85,
-    image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/18834577/pexels-photo-18834577.jpeg",
     category: "vegetables",
     brand: "GreenFields",
     description: "Zanahorias baby tiernas y dulces, ideales para ensaladas",
