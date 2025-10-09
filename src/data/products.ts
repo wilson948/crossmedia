@@ -249,12 +249,12 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.6
   },
-  https://th.bing.com/th/id/OIP.5oY0wQgv2xo1Uf4estk5sAHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3
+  
   {
     id: 17,
     name: "Carne de Res Premium",
     price: 111.29,
-    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse4.mm.bing.net/th/id/OIP.ZdV2eESDGivcsZ6Sb-JRuQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "meat",
     brand: "PrimeCuts",
     description: "Carne de res premium, perfecta para asados y parrillas",
