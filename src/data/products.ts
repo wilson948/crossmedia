@@ -227,7 +227,7 @@ export const products: Product[] = [
   {
     id: 16,
     name: "Pechuga de Pollo Sin Piel",
-    price: 62.58,
+    price: 50.30,
     image: "https://th.bing.com/th/id/OIP.5oY0wQgv2xo1Uf4estk5sAHaHa?w=190&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     category: "meat",
     brand: "FarmFresh",
@@ -238,8 +238,7 @@ export const products: Product[] = [
   {
     id: 17,
     name: "Carne de Res Premium",
-    price: 111.29,
-    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600",
+    price: 111.29,  image:"https://progcarne.com/storage/app/uploads/public/60b/e39/e76/60be39e761e53554131032.jpg",
     category: "meat",
     brand: "PrimeCuts",
     description: "Carne de res premium, perfecta para asados y parrillas",
