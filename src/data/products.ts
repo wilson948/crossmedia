@@ -205,7 +205,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 13,
     name: "Apio Fresco",
     price: 15.64,
-    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse2.mm.bing.net/th/id/OIP.yW5vs99_OzyXbCwKeLDO8gHaFW?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "vegetables",
     brand: "CrispyGreens",
     description: "Apio fresco crujiente, ideal para jugos y ensaladas",
