@@ -401,7 +401,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 29,
     name: "Mantequilla Artesanal",
     price: 45.18,
-    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://montefino.pe/wp-content/uploads/2023/08/mantequilla-1.png",
     category: "dairy",
     brand: "CreamyCraft",
     description: "Mantequilla artesanal hecha con crema fresca",
