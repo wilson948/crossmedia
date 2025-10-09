@@ -398,7 +398,7 @@ export const products: Product[] = [
     id: 31,
     name: "Pan Integral Artesanal",
     price: 27.77,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse2.mm.bing.net/th/id/OIP.pYniv5LS51eRe58qRXaukQHaFj?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "bakery",
     brand: "ArtisanBread",
     description: "Pan integral artesanal horneado diariamente",
