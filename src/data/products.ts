@@ -47,7 +47,8 @@ export const categories: Category[] = [
     id: "beverages",
     name: "Bebidas",
     icon: "🥤",
-    image: "https://img.freepik.com/premium-photo/such-juices-are-shown-glasses-tablerealistic_931576-47792.jpg"
+      image: "https://img.freepik.com/premium-photo/such-juices-are-shown-glasses-tablerealistic_931576-47792.jpg"
+  }
   }
 ];
 
