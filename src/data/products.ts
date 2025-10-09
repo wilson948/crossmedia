@@ -177,6 +177,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     description: "Cebollas rojas frescas, perfectas para ensaladas y guisos",
     inStock: true,
     rating: 4.1
+    discount: 20
   },
   {
     id: 12,
