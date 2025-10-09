@@ -341,7 +341,7 @@ export const products: Product[] = [
     id: 26,
     name: "Leche Entera Orgánica",
     price: 31.25,
-    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.mm.bing.net/th/id/OIP.-lMJ6fi_y0z_jrA5ir_H9QHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "dairy",
     brand: "PureDairy",
     description: "Leche entera orgánica de vacas alimentadas con pasto",
