@@ -114,7 +114,7 @@ export const products: Product[] = [
     id: 6,
     name: "Aguacates Hass",
     price: 34.73,
-    image: "https://images.pexels.com/photos/5785658/pexels-photo-5785658.jpegs",
+    image: "https://images.pexels.com/photos/19808822/pexels-photo-19808822.jpeg,
     category: "fruits",
     brand: "TropicalFresh",
     description: "Aguacates Hass cremosos, ricos en grasas saludables",
