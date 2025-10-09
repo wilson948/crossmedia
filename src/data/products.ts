@@ -5,7 +5,7 @@ export const categories: Category[] = [
     id: "fruits",
     name: "Frutas",
     icon: "🍎",
-    image: "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://okdiario.com/img/vida-sana/2017/01/18/frutas.jpg"
   },
   {
     id: "vegetables",
@@ -271,7 +271,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 20,
     name: "Chuletas de Cerdo",
     price: 90.42,
-    image: "https://images.pexels.com/photos/31732115/pexels-photo-31732115.jpeg",
+    image: "https://walmarthn.vtexassets.com/arquivos/ids/295951/Chuleta-Cerdo-Instituc-Prog-Congelada-Paquete-Und-Chuleta-Cerdo-Instituc-Prog-Cong-Paq-Und-1-19878.jpg?v=638207017803600000",
     category: "meat",
     brand: "PorkPrime",
     description: "Chuletas de cerdo tiernas y jugosas",
