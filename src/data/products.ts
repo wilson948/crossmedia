@@ -58,7 +58,7 @@ export const products: Product[] = [
     name: "Manzanas Rojas Premium",
     price: 27.77,
     originalPrice: 34.73,
-    image: "https://images.pexels.com/photos/34192360/pexels-photo-34192360.jpeg",
+    image: "https://th.bing.com/th/id/OIP.223_gHI1bMdQx5Ac6Jn2UwHaGI?w=232&h=192&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     category: "fruits",
     brand: "FreshFarm",
     description: "Manzanas rojas crujientes y dulces, perfectas para snacks saludables",
