@@ -431,7 +431,7 @@ export const products: Product[] = [
     id: 34,
     name: "Baguette Tradicional",
     price: 17.33,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.explicit.bing.net/th/id/OIP.HKYmhtmRFzEOcxWZ6QiMRgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "bakery",
     brand: "ClassicBread",
     description: "Baguette francesa tradicional con corteza crujiente",
