@@ -176,11 +176,12 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     rating: 4.9,
     discount: 25
   },
+  
   {
     id: 11,
     name: "Cebollas Rojas",
     price: 13.85,
-    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse3.mm.bing.net/th/id/OIP.KvpWji6WMcV3DwF1Zq274QHaE8?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "vegetables",
     brand: "FreshVeggies",
     description: "Cebollas rojas frescas, perfectas para ensaladas y guisos",
