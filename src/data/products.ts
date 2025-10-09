@@ -478,7 +478,7 @@ export const products: Product[] = [
     id: 38,
     name: "Miel de Abeja Pura",
     price: 69.54,
-    image: "https://th.bing.com/th/id/OIP.SMvvUwggSAeLPlg9E4ujrQHaHa?w=202&h=202&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
+    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
     category: "organic",
     brand: "BeeNatural",
     description: "Miel de abeja pura sin procesar",
