@@ -146,7 +146,7 @@ export const products: Product[] = [
   {
     id: 9,
     name: "Lechuga Romana",
-    price: 13.15,
+    price: 12.15,
     image: "https://images.pexels.com/photos/5589058/pexels-photo-5589058.jpeg",
     category: "vegetables",
     brand: "CrispyGreens",
