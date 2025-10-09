@@ -426,7 +426,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 31,
     name: "Pan Integral Artesanal",
     price: 27.77,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tiemporeal.periodismoudec.cl/wp-content/uploads/2016/11/pan-integral-1132x509.jpg",
     category: "bakery",
     brand: "ArtisanBread",
     description: "Pan integral artesanal horneado diariamente",
