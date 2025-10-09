@@ -444,11 +444,12 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.8
   },
+  
   {
     id: 33,
     name: "Muffins de Arándanos",
     price: 31.25,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://cocina.guru/wp-content/uploads/2023/03/muffins-de-arandanos.jpg",
     category: "bakery",
     brand: "BerryBake",
     description: "Muffins esponjosos con arándanos frescos",
