@@ -363,7 +363,7 @@ export const products: Product[] = [
     id: 28,
     name: "Yogur Griego Natural",
     price: 41.69,
-    image: "https://images.pexels.com/photos/1435735/pexels-photo-1435735.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.mm.bing.net/th/id/OIP.uz562D97Eup_F6CyR2af8gHaJB?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "dairy",
     brand: "GreekGold",
     description: "Yogur griego natural cremoso, alto en proteínas",
