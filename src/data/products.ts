@@ -483,6 +483,7 @@ export const products: Product[] = [
     description: "Miel de abeja pura sin procesar",
     inStock: true,
     rating: 4.7
+     discount: 25
   },
   {
     id: 39,
