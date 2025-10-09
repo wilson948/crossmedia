@@ -543,7 +543,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 44,
     name: "Kombucha de Jengibre",
     price: 38.21,
-    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse4.mm.bing.net/th/id/OIP.Rq70vEatgmGhzsDMKmFMAQHaIM?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "beverages",
     brand: "FermentedLife",
     description: "Kombucha probiótica con jengibre fresco",
