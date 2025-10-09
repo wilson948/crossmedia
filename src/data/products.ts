@@ -70,7 +70,7 @@ export const products: Product[] = [
     id: 2,
     name: "Plátanos Orgánicos",
     price: 17.33,
-    image: "https://images.pexels.com/photos/2872755/pexels-photo-2872755.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/10112876/pexels-photo-10112876.jpeg",
     category: "fruits",
     brand: "EcoBio",
     description: "Plátanos orgánicos maduros, ricos en potasio y fibra",
