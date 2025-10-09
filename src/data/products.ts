@@ -11,7 +11,7 @@ export const categories: Category[] = [
     id: "vegetables",
     name: "Verduras",
     icon: "🥕",
-    image: "https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://media.diariouno.com.ar/p/1aeb761b9098d8638c2343216a69b82d/adjuntos/298/imagenes/009/238/0009238479/1200x0/smart/verduras-1jpeg.jpeg"
   },
   {
     id: "meat",
