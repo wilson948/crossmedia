@@ -482,7 +482,7 @@ export const products: Product[] = [
     brand: "BeeNatural",
     description: "Miel de abeja pura sin procesar",
     inStock: true,
-    rating: 4.7
+    rating: 4.7,
      discount: 25
   },
   {
