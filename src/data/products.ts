@@ -259,7 +259,7 @@ export const products: Product[] = [
   {
     id: 19,
     name: "Camarones Jumbo",
-    price: 132.17,
+    price: 110.17,
     image: "https://i5.walmartimages.com.mx/gr/images/product-images/img_large/00750301972146L.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF",
     category: "seafood",
     brand: "SeaDelights",
@@ -271,7 +271,7 @@ export const products: Product[] = [
     id: 20,
     name: "Chuletas de Cerdo",
     price: 90.42,
-    image: "https://images.pexels.com/photos/3688/food-dinner-lunch-unhealthy.jpg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse2.mm.bing.net/th/id/OIP.DDWQ8xcyz25c9jngcNBGtgHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "meat",
     brand: "PorkPrime",
     description: "Chuletas de cerdo tiernas y jugosas",
