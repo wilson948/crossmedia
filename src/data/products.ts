@@ -47,7 +47,7 @@ export const categories: Category[] = [
     id: "beverages",
     name: "Bebidas",
     icon: "🥤",
-    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://img.freepik.com/premium-photo/such-juices-are-shown-glasses-tablerealistic_931576-47792.jpg"
   }
 ];
 
