@@ -182,7 +182,7 @@ export const products: Product[] = [
     id: 12,
     name: "Limones Frescos",
     price: 17.33,
-    image: "https://images.pexels.com/photos/161559/background-bitter-breakfast-bright-161559.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/6249228/pexels-photo-6249228.jpeg",
     category: "fruits",
     brand: "CitrusFresh",
     description: "Limones frescos jugosos, ricos en vitamina C",
