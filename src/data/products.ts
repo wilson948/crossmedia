@@ -302,7 +302,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 21,
     name: "Atún Fresco",
     price: 160.02,
-    image: "https://images.pexels.com/photos/725992/pexels-photo-725992.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://meatstorehn.com/wp-content/uploads/2020/05/Atun-fresco-en-cubos1.jpg",
     category: "seafood",
     brand: "TunaSelect",
     description: "Atún fresco de calidad sashimi",
