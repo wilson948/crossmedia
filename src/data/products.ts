@@ -486,25 +486,18 @@ export const products: Product[] = [
     discount: 25
   },
   {
-    <div className="p-4 bg-white rounded-2xl shadow-md">
-  <img
-    src={product.image}
-    alt={product.name}
-    className="w-full h-48 object-cover rounded-xl"
-  />
-  <h3 className="text-lg font-semibold mt-2">{product.name}</h3>
-  <p className="text-gray-600">{product.description}</p>
-</div>
-    id: 39,
-    name: "Arroz Integral Orgánico",
-    price: 41.69,
-    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600",
+    id: 38,
+    name: "Miel de Abeja Pura",
+    price: 69.54,
+    image: "https://images.pexels.com/photos/33783/olive-oil-salad-dressing-cooking-olive.jpg?auto=compress&cs=tinysrgb&w=600",
     category: "organic",
-    brand: "GrainPure",
-    description: "Arroz integral orgánico de grano largo",
+    brand: "BeeNatural",
+    description: "Miel de abeja pura sin procesar",
     inStock: true,
-    rating: 4.5
+    rating: 4.7,
+    discount: 25
   },
+  
   {
     id: 40,
     name: "Semillas de Chía",
