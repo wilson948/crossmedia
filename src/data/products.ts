@@ -147,7 +147,7 @@ export const products: Product[] = [
     id: 9,
     name: "Lechuga Romana",
     price: 13.15,
-    image: "https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/5589058/pexels-photo-5589058.jpeg",
     category: "vegetables",
     brand: "CrispyGreens",
     description: "Lechuga romana crujiente, base perfecta para ensaladas César",
