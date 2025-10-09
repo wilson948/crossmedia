@@ -338,7 +338,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 24,
     name: "Costillas de Res",
     price: 118.25,
-    image: "https://images.pexels.com/photos/1539685/pexels-photo-1539685.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://d50xhnwqnrbqk.cloudfront.net/images/products/large/COSTILLA-DE-RES_2.png",
     category: "meat",
     brand: "BBQMaster",
     description: "Costillas de res perfectas para barbacoa",
