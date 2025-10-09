@@ -414,7 +414,6 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.8
   },
-  
   {
     id: 33,
     name: "Muffins de Arándanos",
@@ -426,7 +425,6 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.5
   },
-  
   {
     id: 34,
     name: "Baguette Tradicional",
