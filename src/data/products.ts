@@ -242,7 +242,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 16,
     name: "Pechuga de Pollo Sin Piel",
     price: 62.58,
-    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/OIP.5oY0wQgv2xo1Uf4estk5sAHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "meat",
     brand: "FarmFresh",
     description: "Pechuga de pollo fresca sin piel, alta en proteínas",
