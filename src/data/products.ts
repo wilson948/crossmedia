@@ -204,7 +204,7 @@ export const products: Product[] = [
     id: 14,
     name: "Peras Anjou",
     price: 27.77,
-    image: "https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://media.istockphoto.com/id/610032764/photo/anjou-pears.jpg?s=1024x1024&w=is&k=20&c=P7Ya-iZNFnmtpm4qPY2V-S909pUdK4ZmDwUwIlS1Eys=",
     category: "fruits",
     brand: "OrchardFresh",
     description: "Peras Anjou dulces y jugosas, perfectas para postres",
