@@ -521,7 +521,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 42,
     name: "Jugo de Naranja Natural",
     price: 34.73,
-    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/R.b410fb036f11c656324f7fb0714dbf0e?rik=xWebU1kRqnIS%2fg&pid=ImgRaw&r=0",
     category: "beverages",
     brand: "FreshSqueeze",
     description: "Jugo de naranja 100% natural sin azúcar añadido",
