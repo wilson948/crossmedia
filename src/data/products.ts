@@ -325,7 +325,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 23,
     name: "Bacalao Fresco",
     price: 139.16,
-    image: "https://images.pexels.com/photos/725993/pexels-photo-725993.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://i.blogs.es/04895d/bacalao_salado/1024_2000.jpg",
     category: "seafood",
     brand: "NordicFish",
     description: "Bacalao fresco del Atlántico Norte",
