@@ -374,7 +374,7 @@ export const products: Product[] = [
     id: 29,
     name: "Mantequilla Artesanal",
     price: 45.18,
-    image: "https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse4.mm.bing.net/th/id/OIP.iGN7v3Ny8xXUXihGuJ3DvAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "dairy",
     brand: "CreamyCraft",
     description: "Mantequilla artesanal hecha con crema fresca",
