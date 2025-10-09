@@ -171,7 +171,7 @@ export const products: Product[] = [
     id: 11,
     name: "Cebollas Rojas",
     price: 13.85,
-    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/7456550/pexels-photo-7456550.jpeg",
     category: "vegetables",
     brand: "FreshVeggies",
     description: "Cebollas rojas frescas, perfectas para ensaladas y guisos",
