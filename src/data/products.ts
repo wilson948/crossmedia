@@ -92,7 +92,7 @@ export const products: Product[] = [
     id: 4,
     name: "Espinacas Frescas",
     price: 20.82,
-    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://images.pexels.com/photos/8852027/pexels-photo-8852027.jpeg",
     category: "vegetables",
     brand: "LeafyGreens",
     description: "Espinacas frescas ricas en hierro y vitaminas",
