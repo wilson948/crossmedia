@@ -483,9 +483,18 @@ export const products: Product[] = [
     description: "Miel de abeja pura sin procesar",
     inStock: true,
     rating: 4.7,
-     discount: 25
+    discount: 25
   },
   {
+    <div className="p-4 bg-white rounded-2xl shadow-md">
+  <img
+    src={product.image}
+    alt={product.name}
+    className="w-full h-48 object-cover rounded-xl"
+  />
+  <h3 className="text-lg font-semibold mt-2">{product.name}</h3>
+  <p className="text-gray-600">{product.description}</p>
+</div>
     id: 39,
     name: "Arroz Integral Orgánico",
     price: 41.69,
