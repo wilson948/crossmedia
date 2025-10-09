@@ -436,12 +436,11 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.7
   },
-  
   {
     id: 35,
     name: "Donuts Glaseados",
     price: 41.69,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://canalcocina.es/medias/images/0001083606QuiqueAlCuboT02E021HDonuts-de-galletasCLEAN01.jpg",
     category: "bakery",
     brand: "SweetTreats",
     description: "Donuts glaseados frescos, perfectos para el desayuno",
