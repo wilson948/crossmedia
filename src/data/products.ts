@@ -92,7 +92,7 @@ image:"data:image/webp;base64,UklGRgwZAABXRUJQVlA4IAAZAAAQfACdASr9AA4BPp1Cm0qlo6
     id: 4,
     name: "Espinacas Frescas",
     price: 20.82,
-    image: "https://images.pexels.com/photos/2255935/pexels-photo-2255935.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://www.soldelevante.com/wp-content/uploads/2022/07/Espinacas-frescas.jpg",
     category: "vegetables",
     brand: "LeafyGreens",
     description: "Espinacas frescas ricas en hierro y vitaminas",
