@@ -461,7 +461,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 34,
     name: "Baguette Tradicional",
     price: 17.33,
-    image: "https://images.pexels.com/photos/209206/pexels-photo-209206.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://img2.rtve.es/i/?w=1600&i=1676541025640.jpg",
     category: "bakery",
     brand: "ClassicBread",
     description: "Baguette francesa tradicional con corteza crujiente",
