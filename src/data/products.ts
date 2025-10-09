@@ -238,7 +238,7 @@ export const products: Product[] = [
   {
     id: 17,
     name: "Carne de Res Premium",
-    price: 111.29,  image:"https://progcarne.com/storage/app/uploads/public/60b/e39/e76/60be39e761e53554131032.jpg",
+    price: 90.29,  image:"https://progcarne.com/storage/app/uploads/public/60b/e39/e76/60be39e761e53554131032.jpg",
     category: "meat",
     brand: "PrimeCuts",
     description: "Carne de res premium, perfecta para asados y parrillas",
@@ -249,7 +249,7 @@ export const products: Product[] = [
     id: 18,
     name: "Salmón Atlántico",
     price: 173.95,
-    image: "https://images.pexels.com/photos/725991/pexels-photo-725991.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://metroio.vtexassets.com/arquivos/ids/451217/Filete-de-Salm-n-Atl-ntico-Aqua-500g-1-312828457.jpg?v=638285098405930000",
     category: "seafood",
     brand: "OceanFresh",
     description: "Salmón atlántico fresco, rico en omega-3",
