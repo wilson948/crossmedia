@@ -352,7 +352,7 @@ export const products: Product[] = [
     id: 27,
     name: "Queso Cheddar Añejo",
     price: 55.62,
-    image: "https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.mm.bing.net/th/id/OIP.ajBYYImpl0u0idEfurGFsQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "dairy",
     brand: "CheeseWorks",
     description: "Queso cheddar añejo con sabor intenso y textura cremosa",
