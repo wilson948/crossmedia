@@ -554,7 +554,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 45,
     name: "Smoothie Verde",
     price: 48.67,
-    image: "https://images.pexels.com/photos/416528/pexels-photo-416528.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse3.mm.bing.net/th/id/OIP.-UCyOamPCZS17AFg_QFVGQHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "beverages",
     brand: "GreenBlend",
     description: "Smoothie verde con espinaca, manzana y jengibre",
