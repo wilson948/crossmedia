@@ -228,7 +228,7 @@ export const products: Product[] = [
     id: 16,
     name: "Pechuga de Pollo Sin Piel",
     price: 62.58,
-    image: "https://images.pexels.com/photos/616354/pexels-photo-616354.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://th.bing.com/th/id/OIP.5oY0wQgv2xo1Uf4estk5sAHaHa?w=190&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
     category: "meat",
     brand: "FarmFresh",
     description: "Pechuga de pollo fresca sin piel, alta en proteínas",
