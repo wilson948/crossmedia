@@ -41,7 +41,7 @@ export const categories: Category[] = [
     id: "organic",
     name: "Orgánicos",
     icon: "🌱",
-    image: "https://images.pexels.com/photos/793785/pexels-photo-793785.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://tse1.mm.bing.net/th/id/OIP.yZWkA0Z_-6VyoZsH2ZMNFgHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
   },
   {
     id: "beverages",
