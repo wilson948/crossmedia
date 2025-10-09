@@ -119,7 +119,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 6,
     name: "Aguacates Hass",
     price: 34.73,
-    image: "https://images.pexels.com/photos/557659/pexels-photo-557659.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://tse1.mm.bing.net/th/id/OIP.7dPilp3SEx3KXXDD59W69AHaGL?rs=1&pid=ImgDetMain&o=7&rm=3",
     category: "fruits",
     brand: "TropicalFresh",
     description: "Aguacates Hass cremosos, ricos en grasas saludables",
