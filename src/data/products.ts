@@ -103,7 +103,7 @@ export const products: Product[] = [
     id: 5,
     name: "Tomates Cherry",
     price: 24.29,
-    image: "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+    image: "https://www.pexels.com/es-es/foto/tomates-verdura-vegetal-organico-15634908/",
     category: "vegetables",
     brand: "SunnyVeggies",
     description: "Tomates cherry dulces y jugosos, perfectos para ensaladas",
