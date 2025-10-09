@@ -271,7 +271,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 20,
     name: "Chuletas de Cerdo",
     price: 90.42,
-    image: "https://cdn.pixabay.com/photo/2017/02/23/13/05/pork-chop-2091766_1280.jpg",
+    image: "https://images.pexels.com/photos/31732115/pexels-photo-31732115.jpeg",
     category: "meat",
     brand: "PorkPrime",
     description: "Chuletas de cerdo tiernas y jugosas",
