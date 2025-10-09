@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="text-emerald-400 flex-shrink-0" size={18} />
                 <a href="https://wa.me/59161518317" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-emerald-400 transition-colors">
-                  +591 61518317
+                  +591 76689498
                 </a>
               </div>
               <div className="flex items-center space-x-3">
