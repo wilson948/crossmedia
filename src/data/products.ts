@@ -297,6 +297,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     inStock: true,
     rating: 4.4
   },
+  https://walmarthn.vtexassets.com/arquivos/ids/295951/Chuleta-Cerdo-Instituc-Prog-Congelada-Paquete-Und-Chuleta-Cerdo-Instituc-Prog-Cong-Paq-Und-1-19878.jpg?v=638207017803600000
   {
     id: 21,
     name: "Atún Fresco",
