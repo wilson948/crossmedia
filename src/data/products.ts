@@ -17,7 +17,7 @@ export const categories: Category[] = [
     id: "meat",
     name: "Carnes",
     icon: "🥩",
-    image: "https://images.pexels.com/photos/1539684/pexels-photo-1539684.jpeg?auto=compress&cs=tinysrgb&w=600"
+    image: "https://maxienmadrid.com/wp-content/uploads/2020/09/guia-de-carnes.jpg"
   },
   {
     id: "seafood",
