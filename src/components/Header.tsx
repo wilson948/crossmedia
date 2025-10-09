@@ -13,6 +13,20 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem }: He
 
   const cartTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
+  const handleCheckout = () => {
+    const orderDetails = cartItems
+      .map(item => `${item.quantity}x ${item.name} - $${item.price.toFixed(2)} MXN`)
+      .join('%0A');
+
+    const totalMessage = `Total: $${cartTotal.toFixed(2)} MXN`;
+    const message = `Hola! Me gustaría hacer el siguiente pedido:%0A%0A${orderDetails}%0A%0A${totalMessage}`;
+
+    const whatsappNumber = '525512345678';
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <>
       <header className="bg-white shadow-md sticky top-0 z-50">
@@ -70,7 +84,7 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem }: He
                         />
                         <div className="flex-1">
                           <h3 className="font-semibold text-sm">{item.name}</h3>
-                          <p className="text-green-600 font-bold">${item.price.toFixed(2)}</p>
+                          <p className="text-green-600 font-bold">${item.price.toFixed(2)} MXN</p>
                           <div className="flex items-center space-x-2 mt-2">
                             <button
                               onClick={() => updateCartItem(item.id, item.quantity - 1)}
@@ -103,10 +117,13 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem }: He
                 <div className="border-t p-4 space-y-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Total:</span>
-                    <span className="text-green-600">${cartTotal.toFixed(2)}</span>
+                    <span className="text-green-600">${cartTotal.toFixed(2)} MXN</span>
                   </div>
-                  <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
-                    Proceder al Pago
+                  <button
+                    onClick={handleCheckout}
+                    className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
+                  >
+                    Hacer Pedido por WhatsApp
                   </button>
                 </div>
               )}
