@@ -25,7 +25,7 @@ const StoreInfo: React.FC = () => {
       address: "Av. Equipetrol 789, Equipetrol",
       phone: "+591 61518319",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
-      image: "https://images.pexels.com/photos/6292704/pexels-photo-6292704.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "https://superfreshmarket.com.ve/wp-content/uploads/2022/09/sede-fuerzas-armadas.jpg"
     }
   ];
 
