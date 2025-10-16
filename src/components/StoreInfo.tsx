@@ -17,7 +17,7 @@ const StoreInfo: React.FC = () => {
       address: "Av. Banzer 456, Zona Norte",
       phone: "+591 61518318",
       hours: "Lun-Dom: 7:00 AM - 11:00 PM",
-      image: "https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "https://tse4.mm.bing.net/th/id/OIP.V--UnJ9tgao6NKi8G3XvawHaE8?pid=ImgDet&w=474&h=316&rs=1&o=7&rm=3"
     },
     {
       id: 3,
@@ -25,7 +25,7 @@ const StoreInfo: React.FC = () => {
       address: "Av. Equipetrol 789, Equipetrol",
       phone: "+591 61518319",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
-      image: "https://superfreshmarket.com.ve/wp-content/uploads/2022/09/sede-fuerzas-armadas.jpg"
+      image: "https://tse4.mm.bing.net/th/id/OIP.V--UnJ9tgao6NKi8G3XvawHaE8?pid=ImgDet&w=474&h=316&rs=1&o=7&rm=3"
     }
   ];
 
