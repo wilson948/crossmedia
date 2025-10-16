@@ -9,7 +9,7 @@ const StoreInfo: React.FC = () => {
       address: "Av. Cristo Redentor 123, Plan 3000",
       phone: "+591 61518317",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
-      image: "https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=600"
+      image: "https://tse4.mm.bing.net/th/id/OIP.mjZz61nxwQ4jbVSgKUoF4AHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
     },
     {
       id: 2,
