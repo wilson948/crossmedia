@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { ShoppingCart, X, Plus, Minus, QrCode, CreditCard, Banknote } from 'lucide-react';
+import { ShoppingCart, X, Plus, Minus, QrCode, CreditCard, Banknote, Package } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface HeaderProps {
   cartItems: CartItem[];
   cartItemsCount: number;
   updateCartItem: (id: number, quantity: number) => void;
+  onInventoryClick?: () => void;
 }
 
 type PaymentMethod = 'qr' | 'card' | 'cash' | null;
 
-export default function Header({ cartItems, cartItemsCount, updateCartItem }: HeaderProps) {
+export default function Header({ cartItems, cartItemsCount, updateCartItem, onInventoryClick }: HeaderProps) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>(null);
@@ -38,17 +39,30 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem }: He
               <h1 className="text-2xl font-bold text-green-600">Fresh Market</h1>
             </div>
 
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
-            >
-              <ShoppingCart className="w-6 h-6 text-gray-700" />
-              {cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartItemsCount}
-                </span>
+            <div className="flex items-center gap-2">
+              {onInventoryClick && (
+                <button
+                  onClick={onInventoryClick}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Gestión de Inventario"
+                >
+                  <Package className="w-5 h-5" />
+                  <span className="hidden sm:inline">Inventario</span>
+                </button>
               )}
-            </button>
+
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <ShoppingCart className="w-6 h-6 text-gray-700" />
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-green-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItemsCount}
+                  </span>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </header>

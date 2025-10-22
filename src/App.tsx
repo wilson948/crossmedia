@@ -6,11 +6,13 @@ import ProductCatalog from './components/ProductCatalog';
 import Promotions from './components/Promotions';
 import StoreInfo from './components/StoreInfo';
 import Footer from './components/Footer';
+import InventoryManager from './components/InventoryManager';
 import { CartItem } from './types';
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showInventory, setShowInventory] = useState(false);
 
   const addToCart = (product: any) => {
     setCartItems(prev => {
@@ -48,17 +50,23 @@ function App() {
       catalogSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  if (showInventory) {
+    return <InventoryManager onBack={() => setShowInventory(false)} />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header 
-        cartItems={cartItems} 
+      <Header
+        cartItems={cartItems}
         cartItemsCount={cartItemsCount}
         updateCartItem={updateCartItem}
+        onInventoryClick={() => setShowInventory(true)}
       />
       <HeroSection />
       <FeaturedCategories onCategorySelect={handleCategorySelect} />
-      <ProductCatalog 
-        addToCart={addToCart} 
+      <ProductCatalog
+        addToCart={addToCart}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
       />
