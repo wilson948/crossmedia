@@ -7,7 +7,7 @@ const StoreInfo: React.FC = () => {
       id: 1,
       name: "SuperFresh Plan 3000",
       address: "Av. Cristo Redentor 123, Plan 3000",
-      phone: "+591 61518317",
+      phone: "+591 73186255",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
       image: "https://tse4.mm.bing.net/th/id/OIP.mjZz61nxwQ4jbVSgKUoF4AHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
     },
@@ -148,12 +148,12 @@ const StoreInfo: React.FC = () => {
                 <div className="flex items-center space-x-3">
                   <Phone className="text-emerald-600" size={20} />
                   <a 
-                    href="https://wa.me/59161518317" 
+                    href="https://wa.me/59173186255" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-emerald-600 transition-colors"
                   >
-                    +591 61518317
+                    +591 73186255
                   </a>
                 </div>
               </div>

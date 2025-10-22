@@ -274,7 +274,7 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem, onIn
                 </div>
 
                 <a
-                  href="https://wa.me/59161518317"
+                  href="https://wa.me/59173186255"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
@@ -421,7 +421,7 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem, onIn
                 </div>
 
                 <a
-                  href="https://wa.me/59161518317"
+                  href="https://wa.me/59173186255"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition-colors"
