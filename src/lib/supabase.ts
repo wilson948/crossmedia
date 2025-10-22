@@ -18,6 +18,7 @@ export type InventoryProduct = {
   description: string | null;
   sku: string;
   category_id: string | null;
+  brand: string | null;
   price: number;
   cost: number;
   stock_quantity: number;

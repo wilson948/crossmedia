@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, X, Plus, Minus, QrCode, CreditCard, Banknote, Package } from 'lucide-react';
+import { ShoppingCart, X, Plus, Minus, QrCode, CreditCard, Banknote, Package, Shield } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface HeaderProps {
@@ -7,11 +7,13 @@ interface HeaderProps {
   cartItemsCount: number;
   updateCartItem: (id: number, quantity: number) => void;
   onInventoryClick?: () => void;
+  onAdminToggle?: () => void;
+  isAdmin?: boolean;
 }
 
 type PaymentMethod = 'qr' | 'card' | 'cash' | null;
 
-export default function Header({ cartItems, cartItemsCount, updateCartItem, onInventoryClick }: HeaderProps) {
+export default function Header({ cartItems, cartItemsCount, updateCartItem, onInventoryClick, onAdminToggle, isAdmin }: HeaderProps) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>(null);
@@ -48,6 +50,21 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem, onIn
                 >
                   <Package className="w-5 h-5" />
                   <span className="hidden sm:inline">Inventario</span>
+                </button>
+              )}
+
+              {onAdminToggle && (
+                <button
+                  onClick={onAdminToggle}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    isAdmin
+                      ? 'bg-amber-600 text-white hover:bg-amber-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  title={isAdmin ? 'Desactivar Modo Admin' : 'Activar Modo Admin'}
+                >
+                  <Shield className="w-5 h-5" />
+                  <span className="hidden sm:inline">{isAdmin ? 'Admin' : 'Admin'}</span>
                 </button>
               )}
 

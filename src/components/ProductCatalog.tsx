@@ -1,26 +1,104 @@
-import React, { useState, useMemo } from 'react';
-import { Star, ShoppingCart, Filter, Grid2x2 as Grid, List } from 'lucide-react';
-import { products, categories } from '../data/products';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Star, ShoppingCart, Filter, Grid2x2 as Grid, List, Edit2 } from 'lucide-react';
+import { supabase, type InventoryProduct, type Category } from '../lib/supabase';
 import { Product } from '../types';
 
 interface ProductCatalogProps {
   addToCart: (product: Product) => void;
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
+  isAdmin?: boolean;
 }
 
-const ProductCatalog: React.FC<ProductCatalogProps> = ({ 
-  addToCart, 
-  selectedCategory, 
-  onCategoryChange 
+const ProductCatalog: React.FC<ProductCatalogProps> = ({
+  addToCart,
+  selectedCategory,
+  onCategoryChange,
+  isAdmin = false
 }) => {
   const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+  const [products, setProducts] = useState<InventoryProduct[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingProduct, setEditingProduct] = useState<string | null>(null);
+  const [editPrice, setEditPrice] = useState('');
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    setLoading(true);
+    await Promise.all([loadProducts(), loadCategories()]);
+    setLoading(false);
+  };
+
+  const loadProducts = async () => {
+    const { data, error } = await supabase
+      .from('inventory_products')
+      .select('*')
+      .eq('is_active', true)
+      .order('name');
+
+    if (error) {
+      console.error('Error loading products:', error);
+      return;
+    }
+
+    setProducts(data || []);
+  };
+
+  const loadCategories = async () => {
+    const { data, error } = await supabase
+      .from('categories')
+      .select('*')
+      .order('name');
+
+    if (error) {
+      console.error('Error loading categories:', error);
+      return;
+    }
+
+    setCategories(data || []);
+  };
+
+  const handleEditPrice = (productId: string, currentPrice: number) => {
+    setEditingProduct(productId);
+    setEditPrice(currentPrice.toString());
+  };
+
+  const handleSavePrice = async (productId: string) => {
+    const newPrice = parseFloat(editPrice);
+    if (isNaN(newPrice) || newPrice < 0) {
+      alert('Precio inválido');
+      return;
+    }
+
+    const { error } = await supabase
+      .from('inventory_products')
+      .update({ price: newPrice })
+      .eq('id', productId);
+
+    if (error) {
+      console.error('Error updating price:', error);
+      alert('Error al actualizar el precio');
+      return;
+    }
+
+    setEditingProduct(null);
+    loadProducts();
+  };
+
+  const handleCancelEdit = () => {
+    setEditingProduct(null);
+    setEditPrice('');
+  };
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products.filter(product => {
-      const categoryMatch = selectedCategory === 'all' || product.category === selectedCategory;
+      const categoryMatch = selectedCategory === 'all' || product.category_id === selectedCategory;
       const priceMatch = product.price >= priceRange.min && product.price <= priceRange.max;
       return categoryMatch && priceMatch;
     });
@@ -31,23 +109,49 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
           return a.price - b.price;
         case 'price-high':
           return b.price - a.price;
-        case 'rating':
-          return b.rating - a.rating;
         case 'name':
         default:
           return (a.name || '').localeCompare(b.name || '');
       }
     });
-  }, [selectedCategory, sortBy, priceRange]);
+  }, [selectedCategory, sortBy, priceRange, products]);
 
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        size={16}
-        className={i < Math.floor(rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}
-      />
-    ));
+  const convertToCartProduct = (inventoryProduct: InventoryProduct): Product => {
+    return {
+      id: parseInt(inventoryProduct.sku.split('-')[1]) || 0,
+      name: inventoryProduct.name,
+      price: inventoryProduct.price,
+      image: inventoryProduct.image_url || '',
+      category: inventoryProduct.category_id || '',
+      brand: inventoryProduct.brand || '',
+      description: inventoryProduct.description || '',
+      inStock: inventoryProduct.stock_quantity > 0,
+      rating: 4.5
+    };
+  };
+
+  if (loading) {
+    return (
+      <section id="catalog" className="py-16 bg-gray-50">
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+        </div>
+      </section>
+    );
+  }
+
+  const getCategoryIcon = (categoryId: string | null) => {
+    const iconMap: Record<string, string> = {
+      'fruits': '🍎',
+      'vegetables': '🥕',
+      'meat': '🥩',
+      'seafood': '🐟',
+      'dairy': '🥛',
+      'bakery': '🍞',
+      'organic': '🌱',
+      'beverages': '🥤'
+    };
+    return iconMap[categoryId || ''] || '📦';
   };
 
   return (
@@ -86,7 +190,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     : 'bg-white text-gray-700 hover:bg-emerald-50'
                 }`}
               >
-                <span>{category.icon}</span>
+                <span>{getCategoryIcon(category.id)}</span>
                 <span>{category.name}</span>
               </button>
             ))}
@@ -105,7 +209,6 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   <option value="name">Ordenar por Nombre</option>
                   <option value="price-low">Precio: Menor a Mayor</option>
                   <option value="price-high">Precio: Mayor a Menor</option>
-                  <option value="rating">Mejor Calificación</option>
                 </select>
               </div>
               
@@ -155,16 +258,11 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
             >
               <div className={`${viewMode === 'list' ? 'w-24 h-24 flex-shrink-0' : 'h-48'} relative overflow-hidden ${viewMode === 'grid' ? 'rounded-t-2xl' : 'rounded-lg'}`}>
                 <img
-                  src={product.image}
+                  src={product.image_url || 'https://via.placeholder.com/300x300?text=Sin+Imagen'}
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                {product.discount && (
-                  <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-lg text-sm font-semibold">
-                    -{product.discount}%
-                  </div>
-                )}
-                {!product.inStock && (
+                {product.stock_quantity === 0 && (
                   <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <span className="text-white font-semibold">Agotado</span>
                   </div>
@@ -174,12 +272,13 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
               <div className={`${viewMode === 'list' ? 'flex-1 ml-4' : 'p-4'}`}>
                 <div className={`${viewMode === 'list' ? 'flex justify-between items-start' : ''}`}>
                   <div className={`${viewMode === 'list' ? 'flex-1' : ''}`}>
-                    <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
+                    <p className="text-sm text-gray-500 mb-1">{product.brand || 'Sin marca'}</p>
                     <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-                    
-                    <div className="flex items-center space-x-1 mb-2">
-                      {renderStars(product.rating)}
-                      <span className="text-sm text-gray-500 ml-1">({product.rating})</span>
+
+                    <div className="flex items-center mb-2">
+                      <span className="text-xs px-2 py-1 bg-emerald-100 text-emerald-800 rounded-full">
+                        Stock: {product.stock_quantity}
+                      </span>
                     </div>
 
                     {viewMode === 'list' && (
@@ -187,23 +286,50 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     )}
 
                     <div className="flex items-center justify-between">
-                      <div>
-                        <span className="text-lg font-bold text-emerald-600">
-                          Bs {product.price.toFixed(2)}
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through ml-2">
-                            Bs {product.originalPrice.toFixed(2)}
+                      {editingProduct === product.id && isAdmin ? (
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="number"
+                            value={editPrice}
+                            onChange={(e) => setEditPrice(e.target.value)}
+                            className="w-24 px-2 py-1 border border-gray-300 rounded"
+                            step="0.01"
+                          />
+                          <button
+                            onClick={() => handleSavePrice(product.id)}
+                            className="text-xs px-2 py-1 bg-emerald-600 text-white rounded"
+                          >
+                            Guardar
+                          </button>
+                          <button
+                            onClick={handleCancelEdit}
+                            className="text-xs px-2 py-1 bg-gray-300 text-gray-700 rounded"
+                          >
+                            Cancelar
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-bold text-emerald-600">
+                            Bs {product.price.toFixed(2)}
                           </span>
-                        )}
-                      </div>
+                          {isAdmin && (
+                            <button
+                              onClick={() => handleEditPrice(product.id, product.price)}
+                              className="text-gray-400 hover:text-emerald-600"
+                            >
+                              <Edit2 size={16} />
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   <div className={`${viewMode === 'list' ? 'ml-4' : 'mt-3'}`}>
                     <button
-                      onClick={() => addToCart(product)}
-                      disabled={!product.inStock}
+                      onClick={() => addToCart(convertToCartProduct(product))}
+                      disabled={product.stock_quantity === 0}
                       className={`${
                         viewMode === 'list' ? 'px-4 py-2' : 'w-full py-2 px-4'
                       } bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-semibold flex items-center justify-center space-x-2 disabled:bg-gray-300 disabled:cursor-not-allowed`}

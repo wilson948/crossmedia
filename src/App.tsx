@@ -13,6 +13,7 @@ function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showInventory, setShowInventory] = useState(false);
+  const [isAdminMode, setIsAdminMode] = useState(false);
 
   const addToCart = (product: any) => {
     setCartItems(prev => {
@@ -62,6 +63,8 @@ function App() {
         cartItemsCount={cartItemsCount}
         updateCartItem={updateCartItem}
         onInventoryClick={() => setShowInventory(true)}
+        onAdminToggle={() => setIsAdminMode(!isAdminMode)}
+        isAdmin={isAdminMode}
       />
       <HeroSection />
       <FeaturedCategories onCategorySelect={handleCategorySelect} />
@@ -69,6 +72,7 @@ function App() {
         addToCart={addToCart}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
+        isAdmin={isAdminMode}
       />
       <Promotions />
       <StoreInfo />

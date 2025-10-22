@@ -14,6 +14,7 @@ export default function ProductForm({ product, categories, onClose }: ProductFor
     description: '',
     sku: '',
     category_id: '',
+    brand: '',
     price: '',
     cost: '',
     stock_quantity: '',
@@ -30,6 +31,7 @@ export default function ProductForm({ product, categories, onClose }: ProductFor
         description: product.description || '',
         sku: product.sku,
         category_id: product.category_id || '',
+        brand: product.brand || '',
         price: product.price.toString(),
         cost: product.cost.toString(),
         stock_quantity: product.stock_quantity.toString(),
@@ -49,6 +51,7 @@ export default function ProductForm({ product, categories, onClose }: ProductFor
       description: formData.description || null,
       sku: formData.sku,
       category_id: formData.category_id || null,
+      brand: formData.brand || null,
       price: parseFloat(formData.price),
       cost: parseFloat(formData.cost),
       stock_quantity: parseInt(formData.stock_quantity),
@@ -133,6 +136,19 @@ export default function ProductForm({ product, categories, onClose }: ProductFor
             />
           </div>
 
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Marca
+            </label>
+            <input
+              type="text"
+              name="brand"
+              value={formData.brand}
+              onChange={handleChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -170,7 +186,7 @@ export default function ProductForm({ product, categories, onClose }: ProductFor
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Precio de Venta *
+                Precio de Venta (Bs) *
               </label>
               <input
                 type="number"
@@ -186,7 +202,7 @@ export default function ProductForm({ product, categories, onClose }: ProductFor
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Costo *
+                Costo (Bs) *
               </label>
               <input
                 type="number"
