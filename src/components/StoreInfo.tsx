@@ -15,7 +15,7 @@ const StoreInfo: React.FC = () => {
       id: 2,
       name: "SuperFresh Norte",
       address: "Av. Banzer 456, Zona Norte",
-      phone: "+591 73186255",
+      phone: "+591 61518318",
       hours: "Lun-Dom: 7:00 AM - 11:00 PM",
       image: "https://tse4.mm.bing.net/th/id/OIP.V--UnJ9tgao6NKi8G3XvawHaE8?pid=ImgDet&w=474&h=316&rs=1&o=7&rm=3"
     },
@@ -23,7 +23,7 @@ const StoreInfo: React.FC = () => {
       id: 3,
       name: "SuperFresh Equipetrol",
       address: "Av. Equipetrol 789, Equipetrol",
-      phone: "+591 73186255",
+      phone: "+591 61518319",
       hours: "Lun-Dom: 8:00 AM - 10:00 PM",
       image: "https://tse4.mm.bing.net/th/id/OIP.RUxtopiQweycQaGOhP2fwgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
     }
