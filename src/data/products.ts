@@ -498,7 +498,7 @@ image:"https://tse1.mm.bing.net/th/id/OIP.q_nZp-rRxUfnj1GxZmNKwQHaHa?rs=1&pid=Im
     id: 40,
     name: "Semillas de Chía",
     price: 55.62,
-    image: "https://tse1.mm.bing.net/th/id/OIF.IV0Jynsl3kK103vi4OASoA?rs=1&pid=ImgDetMain&o=7&rm=3",
+    image: "https://www.moncloa.com/wp-content/uploads/2023/06/img_d3d61f0968deee01299f8fda33105f61.jpg",
     category: "organic",
     brand: "SuperSeeds",
     description: "Semillas de chía orgánicas ricas en omega-3",
