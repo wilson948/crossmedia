@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { supabase, type InventoryProduct, type Category } from '../lib/supabase';
-import { Plus, Edit2, Trash2, Package, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { Plus, Edit2, Trash2, Package, AlertTriangle, ArrowLeft, Download } from 'lucide-react';
 import ProductForm from './ProductForm';
 import StockMovementModal from './StockMovementModal';
+import { products as catalogProducts } from '../data/products';
 
 interface InventoryManagerProps {
   onBack?: () => void;
@@ -99,6 +100,64 @@ export default function InventoryManager({ onBack }: InventoryManagerProps) {
     loadProducts();
   };
 
+  const handleLoadCatalogProducts = async () => {
+    if (!confirm('¿Deseas cargar todos los productos del catálogo al inventario? Esto puede tardar un momento.')) {
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      for (const product of catalogProducts) {
+        const inventoryProduct = {
+          sku: `PROD-${product.id}`,
+          name: product.name,
+          category: getCategoryFromId(product.category),
+          brand: product.brand,
+          price: product.price,
+          stock_quantity: 100,
+          min_stock_level: 20,
+          max_stock_level: 200,
+          reorder_point: 30,
+          supplier: 'Proveedor General',
+          description: product.description,
+          image_url: product.image,
+          is_active: product.inStock
+        };
+
+        const { error } = await supabase
+          .from('inventory_products')
+          .upsert(inventoryProduct, { onConflict: 'sku' });
+
+        if (error) {
+          console.error('Error cargando producto:', product.name, error);
+        }
+      }
+
+      alert('¡Productos cargados exitosamente!');
+      await loadProducts();
+    } catch (error) {
+      console.error('Error cargando productos:', error);
+      alert('Error al cargar los productos');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getCategoryFromId = (categoryId: string): string => {
+    const categoryMap: Record<string, string> = {
+      'fruits': 'Frutas Frescas',
+      'vegetables': 'Verduras',
+      'meat': 'Carnes',
+      'seafood': 'Pescados y Mariscos',
+      'dairy': 'Lácteos',
+      'bakery': 'Panadería',
+      'organic': 'Productos Orgánicos',
+      'beverages': 'Bebidas'
+    };
+    return categoryMap[categoryId] || 'Otros';
+  };
+
   const filteredProducts = filterCategory === 'all'
     ? products
     : products.filter(p => p.category_id === filterCategory);
@@ -162,13 +221,22 @@ export default function InventoryManager({ onBack }: InventoryManagerProps) {
               </select>
             </div>
 
-            <button
-              onClick={handleAddNew}
-              className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
-            >
-              <Plus className="h-5 w-5" />
-              Agregar Producto
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleLoadCatalogProducts}
+                className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                <Download className="h-5 w-5" />
+                Cargar Productos del Catálogo
+              </button>
+              <button
+                onClick={handleAddNew}
+                className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+              >
+                <Plus className="h-5 w-5" />
+                Agregar Producto
+              </button>
+            </div>
           </div>
         </div>
 
