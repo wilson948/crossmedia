@@ -39,3 +39,43 @@ export type StockMovement = {
   reason: string | null;
   created_at: string;
 };
+
+export type Branch = {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+  email: string | null;
+  hours: string;
+  latitude: number | null;
+  longitude: number | null;
+  image_url: string | null;
+  is_active: boolean;
+  created_at: string;
+};
+
+export type UserRole = {
+  id: string;
+  name: string;
+  description: string | null;
+  created_at: string;
+};
+
+export type UserPermission = {
+  id: string;
+  name: string;
+  description: string | null;
+  category: string;
+  created_at: string;
+};
+
+export type UserProfile = {
+  id: string;
+  role_id: string | null;
+  branch_id: string | null;
+  full_name: string;
+  phone: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};

@@ -7,12 +7,14 @@ import Promotions from './components/Promotions';
 import StoreInfo from './components/StoreInfo';
 import Footer from './components/Footer';
 import InventoryManager from './components/InventoryManager';
+import UserManagement from './components/UserManagement';
 import { CartItem } from './types';
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showInventory, setShowInventory] = useState(false);
+  const [showUserManagement, setShowUserManagement] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
 
   const addToCart = (product: any) => {
@@ -56,6 +58,25 @@ function App() {
     return <InventoryManager onBack={() => setShowInventory(false)} />;
   }
 
+  if (showUserManagement) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <div className="bg-white shadow-sm sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <button
+              onClick={() => setShowUserManagement(false)}
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+            >
+              <span>←</span>
+              <span>Volver al inicio</span>
+            </button>
+          </div>
+        </div>
+        <UserManagement />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header
@@ -63,6 +84,7 @@ function App() {
         cartItemsCount={cartItemsCount}
         updateCartItem={updateCartItem}
         onInventoryClick={() => setShowInventory(true)}
+        onUserManagementClick={() => setShowUserManagement(true)}
         onAdminToggle={() => setIsAdminMode(!isAdminMode)}
         isAdmin={isAdminMode}
       />

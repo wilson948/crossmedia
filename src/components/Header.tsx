@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, X, Plus, Minus, QrCode, CreditCard, Banknote, Package, Shield } from 'lucide-react';
+import { ShoppingCart, X, Plus, Minus, QrCode, CreditCard, Banknote, Package, Shield, Users } from 'lucide-react';
 import { CartItem } from '../types';
 
 interface HeaderProps {
@@ -7,13 +7,14 @@ interface HeaderProps {
   cartItemsCount: number;
   updateCartItem: (id: number, quantity: number) => void;
   onInventoryClick?: () => void;
+  onUserManagementClick?: () => void;
   onAdminToggle?: () => void;
   isAdmin?: boolean;
 }
 
 type PaymentMethod = 'qr' | 'card' | 'cash' | null;
 
-export default function Header({ cartItems, cartItemsCount, updateCartItem, onInventoryClick, onAdminToggle, isAdmin }: HeaderProps) {
+export default function Header({ cartItems, cartItemsCount, updateCartItem, onInventoryClick, onUserManagementClick, onAdminToggle, isAdmin }: HeaderProps) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<PaymentMethod>(null);
@@ -50,6 +51,17 @@ export default function Header({ cartItems, cartItemsCount, updateCartItem, onIn
                 >
                   <Package className="w-5 h-5" />
                   <span className="hidden sm:inline">Inventario</span>
+                </button>
+              )}
+
+              {onUserManagementClick && (
+                <button
+                  onClick={onUserManagementClick}
+                  className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                  title="Gestión de Usuarios"
+                >
+                  <Users className="w-5 h-5" />
+                  <span className="hidden sm:inline">Usuarios</span>
                 </button>
               )}
 

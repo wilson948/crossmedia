@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapPin, Clock, Phone, Mail, Truck, CreditCard, ShieldCheck, Users } from 'lucide-react';
+import { supabase, type Branch } from '../lib/supabase';
 
 const StoreInfo: React.FC = () => {
-  const storeLocations = [
-    {
-      id: 1,
-      name: "SuperFresh Plan 3000",
-      address: "Av. Cristo Redentor 123, Plan 3000",
-      phone: "+591 73186255",
-      hours: "Lun-Dom: 8:00 AM - 10:00 PM",
-      image: "https://tse4.mm.bing.net/th/id/OIP.mjZz61nxwQ4jbVSgKUoF4AHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
-    },
-    {
-      id: 2,
-      name: "SuperFresh Norte",
-      address: "Av. Banzer 456, Zona Norte",
-      phone: "+591 61518318",
-      hours: "Lun-Dom: 7:00 AM - 11:00 PM",
-      image: "https://tse4.mm.bing.net/th/id/OIP.V--UnJ9tgao6NKi8G3XvawHaE8?pid=ImgDet&w=474&h=316&rs=1&o=7&rm=3"
-    },
-    {
-      id: 3,
-      name: "SuperFresh Equipetrol",
-      address: "Av. Equipetrol 789, Equipetrol",
-      phone: "+591 61518319",
-      hours: "Lun-Dom: 8:00 AM - 10:00 PM",
-      image: "https://tse4.mm.bing.net/th/id/OIP.RUxtopiQweycQaGOhP2fwgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+  const [branches, setBranches] = useState<Branch[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadBranches();
+  }, []);
+
+  const loadBranches = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('branches')
+        .select('*')
+        .eq('is_active', true)
+        .order('name');
+
+      if (error) throw error;
+      setBranches(data || []);
+    } catch (error) {
+      console.error('Error loading branches:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const openGoogleMaps = (latitude: number | null, longitude: number | null, address: string) => {
+    if (latitude && longitude) {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`, '_blank');
+    } else {
+      window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
+    }
+  };
 
   const services = [
     {
@@ -70,46 +76,75 @@ const StoreInfo: React.FC = () => {
 
         {/* Store Locations */}
         <div className="grid lg:grid-cols-3 gap-8 mb-16">
-          {storeLocations.map((store) => (
-            <div key={store.id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
-              <img
-                src={store.image}
-                alt={store.name}
-                className="w-full h-48 object-cover"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{store.name}</h3>
-                
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
-                    <MapPin className="text-emerald-600 mt-1 flex-shrink-0" size={18} />
-                    <span className="text-gray-600">{store.address}</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <Phone className="text-emerald-600 flex-shrink-0" size={18} />
-                    <a 
-                      href={`https://wa.me/591${store.phone.replace('+591 ', '').replace(' ', '')}`}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-emerald-600 transition-colors"
-                    >
-                      {store.phone}
-                    </a>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <Clock className="text-emerald-600 flex-shrink-0" size={18} />
-                    <span className="text-gray-600">{store.hours}</span>
-                  </div>
-                </div>
-
-                <button className="mt-4 w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition-colors">
-                  Ver en Mapa
-                </button>
-              </div>
+          {loading ? (
+            <div className="col-span-3 text-center py-12">
+              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600"></div>
+              <p className="mt-4 text-gray-600">Cargando sucursales...</p>
             </div>
-          ))}
+          ) : branches.length === 0 ? (
+            <div className="col-span-3 text-center py-12">
+              <p className="text-gray-600">No hay sucursales disponibles.</p>
+            </div>
+          ) : (
+            branches.map((branch) => (
+              <div key={branch.id} className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow overflow-hidden">
+                {branch.image_url && (
+                  <img
+                    src={branch.image_url}
+                    alt={branch.name}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{branch.name}</h3>
+
+                  <div className="space-y-3">
+                    <div className="flex items-start space-x-3">
+                      <MapPin className="text-emerald-600 mt-1 flex-shrink-0" size={18} />
+                      <span className="text-gray-600">{branch.address}</span>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Phone className="text-emerald-600 flex-shrink-0" size={18} />
+                      <a
+                        href={`https://wa.me/${branch.phone.replace(/[\s+]/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 hover:text-emerald-600 transition-colors"
+                      >
+                        {branch.phone}
+                      </a>
+                    </div>
+
+                    <div className="flex items-center space-x-3">
+                      <Clock className="text-emerald-600 flex-shrink-0" size={18} />
+                      <span className="text-gray-600">{branch.hours}</span>
+                    </div>
+
+                    {branch.email && (
+                      <div className="flex items-center space-x-3">
+                        <Mail className="text-emerald-600 flex-shrink-0" size={18} />
+                        <a
+                          href={`mailto:${branch.email}`}
+                          className="text-gray-600 hover:text-emerald-600 transition-colors text-sm"
+                        >
+                          {branch.email}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={() => openGoogleMaps(branch.latitude, branch.longitude, branch.address)}
+                    className="mt-4 w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center space-x-2"
+                  >
+                    <MapPin size={18} />
+                    <span>Ver en Google Maps</span>
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
         {/* Services */}
