@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
 import FeaturedCategories from './components/FeaturedCategories';
@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import InventoryManager from './components/InventoryManager';
 import UserManagement from './components/UserManagement';
 import { CartItem } from './types';
+import { supabase } from './lib/supabase';
 
 function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -16,14 +17,44 @@ function App() {
   const [showInventory, setShowInventory] = useState(false);
   const [showUserManagement, setShowUserManagement] = useState(false);
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [productStock, setProductStock] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    loadProductStock();
+  }, []);
+
+  const loadProductStock = async () => {
+    const { data, error } = await supabase
+      .from('inventory_products')
+      .select('sku, stock_quantity');
+
+    if (!error && data) {
+      const stockMap: Record<string, number> = {};
+      data.forEach((product: any) => {
+        const id = parseInt(product.sku.split('-')[1]) || 0;
+        stockMap[id] = product.stock_quantity;
+      });
+      setProductStock(stockMap);
+    }
+  };
 
   const addToCart = (product: any) => {
+    const availableStock = productStock[product.id] || 0;
+
     setCartItems(prev => {
       const existingItem = prev.find(item => item.id === product.id);
+      const currentQuantity = existingItem ? existingItem.quantity : 0;
+      const newQuantity = currentQuantity + 1;
+
+      if (newQuantity > availableStock) {
+        alert(`Lo sentimos, solo contamos con ${availableStock} unidades disponibles de este producto.`);
+        return prev;
+      }
+
       if (existingItem) {
         return prev.map(item =>
-          item.id === product.id 
-            ? { ...item, quantity: item.quantity + 1 }
+          item.id === product.id
+            ? { ...item, quantity: newQuantity }
             : item
         );
       }
@@ -32,6 +63,13 @@ function App() {
   };
 
   const updateCartItem = (id: number, quantity: number) => {
+    const availableStock = productStock[id] || 0;
+
+    if (quantity > availableStock) {
+      alert(`Lo sentimos, solo contamos con ${availableStock} unidades disponibles de este producto.`);
+      return;
+    }
+
     if (quantity === 0) {
       setCartItems(prev => prev.filter(item => item.id !== id));
     } else {
