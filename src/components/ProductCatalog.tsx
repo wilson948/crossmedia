@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Star, ShoppingCart, Filter, Grid2x2 as Grid, List, Edit2 } from 'lucide-react';
+import { Star, ShoppingCart, Filter, Grid2x2 as Grid, List, Edit2, QrCode } from 'lucide-react';
 import { supabase, type InventoryProduct, type Category } from '../lib/supabase';
 import { Product } from '../types';
 
@@ -24,6 +24,8 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
   const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState('');
+  const [showQRModal, setShowQRModal] = useState(false);
+  const [selectedProductForQR, setSelectedProductForQR] = useState<InventoryProduct | null>(null);
 
   useEffect(() => {
     loadData();
@@ -94,6 +96,16 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
   const handleCancelEdit = () => {
     setEditingProduct(null);
     setEditPrice('');
+  };
+
+  const generateQRCode = (product: InventoryProduct) => {
+    setSelectedProductForQR(product);
+    setShowQRModal(true);
+  };
+
+  const getQRCodeURL = (product: InventoryProduct) => {
+    const paymentData = `Banco Ganadero - ${product.name} - Bs ${product.price.toFixed(2)} - SKU: ${product.sku}`;
+    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(paymentData)}`;
   };
 
   const filteredAndSortedProducts = useMemo(() => {
@@ -326,7 +338,7 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     </div>
                   </div>
 
-                  <div className={`${viewMode === 'list' ? 'ml-4' : 'mt-3'}`}>
+                  <div className={`${viewMode === 'list' ? 'ml-4 flex gap-2' : 'mt-3 space-y-2'}`}>
                     <button
                       onClick={() => addToCart(convertToCartProduct(product))}
                       disabled={product.stock_quantity === 0}
@@ -336,6 +348,16 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     >
                       <ShoppingCart size={18} />
                       <span>{viewMode === 'list' ? 'Agregar' : 'Agregar al Carrito'}</span>
+                    </button>
+                    <button
+                      onClick={() => generateQRCode(product)}
+                      disabled={product.stock_quantity === 0}
+                      className={`${
+                        viewMode === 'list' ? 'px-4 py-2' : 'w-full py-2 px-4'
+                      } bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center space-x-2 disabled:bg-gray-300 disabled:cursor-not-allowed`}
+                    >
+                      <QrCode size={18} />
+                      <span>QR Pago</span>
                     </button>
                   </div>
                 </div>
@@ -347,6 +369,52 @@ const ProductCatalog: React.FC<ProductCatalogProps> = ({
         {filteredAndSortedProducts.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">No se encontraron productos que coincidan con los filtros seleccionados.</p>
+          </div>
+        )}
+
+        {/* QR Code Modal */}
+        {showQRModal && selectedProductForQR && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  Pagar con QR
+                </h3>
+                <p className="text-gray-600 mb-4">Banco Ganadero</p>
+
+                <div className="bg-gray-50 rounded-xl p-4 mb-6">
+                  <img
+                    src={getQRCodeURL(selectedProductForQR)}
+                    alt="QR de pago"
+                    className="w-full max-w-[300px] mx-auto rounded-lg"
+                  />
+                </div>
+
+                <div className="bg-emerald-50 rounded-xl p-4 mb-6 text-left">
+                  <h4 className="font-semibold text-gray-900 mb-2">Detalles del Producto:</h4>
+                  <p className="text-gray-700"><span className="font-medium">Producto:</span> {selectedProductForQR.name}</p>
+                  <p className="text-gray-700"><span className="font-medium">Marca:</span> {selectedProductForQR.brand || 'N/A'}</p>
+                  <p className="text-gray-700"><span className="font-medium">SKU:</span> {selectedProductForQR.sku}</p>
+                  <p className="text-gray-700 text-xl font-bold mt-2">
+                    <span className="font-medium">Total:</span> Bs {selectedProductForQR.price.toFixed(2)}
+                  </p>
+                </div>
+
+                <div className="text-sm text-gray-600 mb-6">
+                  <p>Escanea el código QR con tu app de Banco Ganadero para realizar el pago.</p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setShowQRModal(false);
+                    setSelectedProductForQR(null);
+                  }}
+                  className="w-full bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors font-semibold"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
